@@ -17,20 +17,10 @@ namespace MailSender.TestWPF
 
 		private void ButtonSend_OnClick(object sender, RoutedEventArgs routedEventArgs)
 		{
-			using var client = new SmtpClient(ServiceParameters.Host, ServiceParameters.Port)
-			{
-				UseDefaultCredentials = false,
-				DeliveryMethod = SmtpDeliveryMethod.Network,
-				EnableSsl = true,
-				Credentials = new NetworkCredential
-				{
-					UserName = Login.Text,
-					Password = Password_edit.Text
-				}
-			};
+			using var service = new EmailSendService(LoginEdit.Text, PasswordEdit.SecurePassword);
 			try
 			{
-				client.Send(ServiceParameters.Message);
+				service.SendMessage();
 				MessageBox.Show("Почта успешно отправлена", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 			catch (SmtpException smtp_exception)
