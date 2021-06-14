@@ -18,6 +18,7 @@ namespace MailSender.TestWPF
 		private void ButtonSend_OnClick(object sender, RoutedEventArgs routedEventArgs)
 		{
 			using var service = new EmailSendService(LoginEdit.Text, PasswordEdit.SecurePassword);
+
 			try
 			{
 				service.SendMessage();
@@ -25,8 +26,9 @@ namespace MailSender.TestWPF
 			}
 			catch (SmtpException smtp_exception)
 			{
-				MessageBox.Show(smtp_exception.Message, "Ошибка при отправке почты", MessageBoxButton.OK, MessageBoxImage.Error);
+				var errorWindow = new SendErrorWindow(smtp_exception.Message);
+				errorWindow.ShowDialog();
 			}
-        }
+		}
 	}
 }
