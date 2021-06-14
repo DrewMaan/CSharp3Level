@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Рассыльщик писем" Height="450" Width="800">
     <Grid>
-
+		<Grid.RowDefinitions>
+			<RowDefinition Height="25"/>
+			<RowDefinition Height="20*"/>
+		</Grid.RowDefinitions>
+			<Label Grid.Row="0" Content="Рассыльщик писем"></Label>
+        <DockPanel Grid.Row="1">
+            <TabControl>
+                <TabItem Header="General"></TabItem>
+            </TabControl>
+        </DockPanel>
     </Grid>
 </Window>
