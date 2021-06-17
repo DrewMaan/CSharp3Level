@@ -5,10 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender.TestConsole"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-		<Label Content="Имя пользователя:" Margin="150, 100, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" FontFamily="Arial">
-            <Label.Foreground>
+        Title="Рассыльщик писем" Height="450" Width="800">
+	<DockPanel>
+		<TabControl>
+			<TabItem Header="Grid">
+				<Grid>
+					<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+					<Label Content="Имя пользователя:" Margin="20, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" FontFamily="Arial">
+			<Label.Foreground>
 				<LinearGradientBrush EndPoint="0.5,1"
 				                     StartPoint="0.5,0">
 					<GradientStop Color="{StaticResource NormalBrushGradient1}"
@@ -22,24 +29,188 @@
 				</LinearGradientBrush>
 			</Label.Foreground>
 		</Label>
-        <TextBox Name="LoginEdit"  Margin="150, 130, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
-	    <Label Content="Пароль:" Margin="0, 100, 150, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150">
-		    <Label.Foreground>
-			    <LinearGradientBrush EndPoint="0.5,1"
-			                         StartPoint="0.5,0">
-				    <GradientStop Color="{StaticResource NormalBrushGradient1}"
-				                  Offset="0" />
-				    <GradientStop Color="{StaticResource NormalBrushGradient2}"
-				                  Offset="0.41800001263618469" />
-				    <GradientStop Color="{StaticResource NormalBrushGradient3}"
-				                  Offset="0.418" />
-				    <GradientStop Color="{StaticResource NormalBrushGradient4}"
-				                  Offset="1" />
-			    </LinearGradientBrush>
-		    </Label.Foreground>
-	    </Label>
-		<PasswordBox Name="PasswordEdit" Margin="0, 130, 150, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150"/>
-			<Button Height="40" Width="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 50" Content="Отправить"
-                Click="ButtonSend_OnClick"/>
-    </Grid>
+					<TextBox Name="LoginEdit"  Margin="20, 50, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
+
+					<Label Content="Пароль:" Margin="20, 80, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+						                         StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+							                  Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+							                  Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+							                  Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+							                  Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<PasswordBox Name="PasswordEdit" Margin="20, 110, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
+					<Button Height="40" Width="100" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="40, 150, 0, 50" Content="Отправить"
+				            Click="ButtonSend_OnClick"/>
+
+					<Label Grid.Column="1" Content="Тема сообщения:" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50, 20, 0, 0">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+							                     StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+								              Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+								              Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+								              Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+								              Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<TextBox Grid.Column="1" x:Name="txtbSubjectMessage" Width="Auto" Height="Auto" VerticalAlignment="Top" Margin="50, 50, 40, 0"></TextBox>
+
+					<Label Grid.Column="1" Content="Сообщение:" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50, 80, 0, 0">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+					                             StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+						                      Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+						                      Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+						                      Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+						                      Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<TextBox Grid.Column="1" x:Name="txtbMessage" Margin="50,110,40,35" TextWrapping="Wrap"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="StackPanel">
+				<StackPanel>
+					<Label Content="Имя пользователя:" Margin="20, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" FontFamily="Arial">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+							                     StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+								              Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+								              Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+								              Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+								              Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<TextBox Name="LoginEditStackPanel"  Margin="20, 5, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150"/>
+
+					<Label Content="Пароль:" Margin="20, 5, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+							                     StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+								              Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+								              Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+								              Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+								              Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<PasswordBox Name="PasswordEditStackPanel" Margin="20, 5, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150"/>
+
+					<Label Content="Тема сообщения:" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 20, 0, 0">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+							                     StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+								              Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+								              Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+								              Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+								              Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<TextBox x:Name="txtbSubjectMessageStackPanel" Width="Auto" Height="Auto" VerticalAlignment="Top" Margin="40, 5, 40, 0"></TextBox>
+
+					<Label Content="Сообщение:" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 10, 0, 0">
+						<Label.Foreground>
+							<LinearGradientBrush EndPoint="0.5,1"
+							                     StartPoint="0.5,0">
+								<GradientStop Color="{StaticResource NormalBrushGradient1}"
+								              Offset="0" />
+								<GradientStop Color="{StaticResource NormalBrushGradient2}"
+								              Offset="0.41800001263618469" />
+								<GradientStop Color="{StaticResource NormalBrushGradient3}"
+								              Offset="0.418" />
+								<GradientStop Color="{StaticResource NormalBrushGradient4}"
+								              Offset="1" />
+							</LinearGradientBrush>
+						</Label.Foreground>
+					</Label>
+					<TextBox x:Name="txtbMessageStackPanel" Margin="40,5,40,10" TextWrapping="Wrap" Height="140"/>
+
+					<Button Height="40" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 40, 50" Content="Отправить"
+					        Click="ButtonSend_OnClickStackPanel"/>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="DockPanel">
+				<DockPanel>
+					<GroupBox Header="Авторизация" DockPanel.Dock="Left">
+						<Grid>
+							<Label Content="Имя пользователя:" Margin="10, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" FontFamily="Arial" DockPanel.Dock="Left">
+								<Label.Foreground>
+									<LinearGradientBrush EndPoint="0.5,1"
+									                     StartPoint="0.5,0">
+										<GradientStop Color="{StaticResource NormalBrushGradient1}"
+										              Offset="0" />
+										<GradientStop Color="{StaticResource NormalBrushGradient2}"
+										              Offset="0.41800001263618469" />
+										<GradientStop Color="{StaticResource NormalBrushGradient3}"
+										              Offset="0.418" />
+										<GradientStop Color="{StaticResource NormalBrushGradient4}"
+										              Offset="1" />
+									</LinearGradientBrush>
+								</Label.Foreground>
+							</Label>
+							<TextBox Name="LoginEditDockPanel"  Margin="10, 35, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" DockPanel.Dock="Left"/>
+
+							<Label Content="Пароль:" Margin="20, 60, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150">
+								<Label.Foreground>
+									<LinearGradientBrush EndPoint="0.5,1"
+									                     StartPoint="0.5,0">
+										<GradientStop Color="{StaticResource NormalBrushGradient1}"
+										              Offset="0" />
+										<GradientStop Color="{StaticResource NormalBrushGradient2}"
+										              Offset="0.41800001263618469" />
+										<GradientStop Color="{StaticResource NormalBrushGradient3}"
+										              Offset="0.418" />
+										<GradientStop Color="{StaticResource NormalBrushGradient4}"
+										              Offset="1" />
+									</LinearGradientBrush>
+								</Label.Foreground>
+							</Label>
+							<PasswordBox Name="PasswordEditDockPanel" Margin="10, 75, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150"/>
+						</Grid>
+					</GroupBox>
+
+					<GroupBox Header="Тема сообщения" DockPanel.Dock="Top">
+						<TextBox x:Name="txtbSubjectMessageDockPanel" Width="Auto" Height="Auto" VerticalAlignment="Top" Margin="40, 5, 40, 0"></TextBox>
+					</GroupBox>
+
+					<Button Height="40" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 0, 0" Content="Отправить"
+					        Click="ButtonSend_OnClickDockPanel" DockPanel.Dock="Bottom"/>
+
+					<GroupBox Header="Сообщение">
+						<TextBox x:Name="txtbMessageDockPanel" Margin="40,5,40,10" TextWrapping="Wrap" Height="140"/>
+					</GroupBox>
+				</DockPanel>
+			</TabItem>
+		</TabControl>
+	</DockPanel>
 </Window>

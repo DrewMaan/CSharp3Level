@@ -13,7 +13,7 @@ namespace MailSender.TestWPF
 		public static MailMessage Message => new MailMessage(MailFrom, MailTo)
 		{
 			Subject = "Тестовое сообщение от " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff"),
-			Body = "Тело тестового сообщения " + DateTime.Now.ToString("F")
+			Body = DateTime.Now.ToString("F")
 		};
 	}
 }
