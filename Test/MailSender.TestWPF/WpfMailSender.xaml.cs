@@ -6,11 +6,11 @@ using System.Windows;
 namespace MailSender.TestWPF
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for WpfMailSender.xaml
 	/// </summary>
-	public partial class MainWindow
+	public partial class WpfMailSender
 	{
-		public MainWindow()
+		public WpfMailSender()
 		{
 			InitializeComponent();
 		}
