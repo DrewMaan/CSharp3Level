@@ -24,5 +24,15 @@ namespace MailSender
 		{
 			InitializeComponent();
 		}
+
+		private void MenuExit_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void OpenScheduler_OnClick(object sender, RoutedEventArgs e)
+		{
+			TabScheduler.IsSelected = true;
+		}
 	}
 }
