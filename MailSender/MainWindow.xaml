@@ -36,23 +36,30 @@
 							<ComboBox Width="120" SelectedIndex="0" Name="ServersList"
 							          ItemsSource="{x:Static data:TestData.Servers}"
 							          DisplayMemberPath="Name"/>
-							<Button>
+							<Button Click="AddServer_OnClick">
 								<StackPanel Orientation="Horizontal">
 									<Image Height="21" Source="Media/add.png" Margin="0,0,3,0"/>
 									<TextBlock Text="Добавить"/>
 								</StackPanel>
 							</Button>
-							<Button ToolTip="Редактировать">
+							<Button ToolTip="Редактировать" Click="EditServer_OnClick">
 								<Image Height="21" Source="Media/edit.png"/>
 							</Button>
-							<Button ToolTip="Удалить">
+							<Button ToolTip="Удалить" Click="DeleteServer_OnClick">
 								<Image Height="21" Source="Media/remove.png"/>
 							</Button>
 						</ToolBar>
 						<ToolBar>
 							<Label Content="Планировщик" Margin="0, 0, 10, 0"/>
 							<Button Click="OpenScheduler_OnClick">
-								<fa:ImageAwesome Height="21" Icon="Solid_Clock"></fa:ImageAwesome>
+								<fa:ImageAwesome Height="21" Icon="Solid_Clock">
+									<fa:ImageAwesome.Foreground>
+										<RadialGradientBrush>
+											<GradientStop Color="#FF0B00F9" Offset="1"/>
+											<GradientStop Color="#FFFF0808" Offset="0"/>
+										</RadialGradientBrush>
+									</fa:ImageAwesome.Foreground>
+								</fa:ImageAwesome>
 							</Button>
 						</ToolBar>
 						<ToolBar Band="1" BandIndex="0">
@@ -67,38 +74,18 @@
 									</DataTemplate>
 								</ComboBox.ItemTemplate>
 							</ComboBox>
-							<Button>
+							<Button Click="ConsignorAdd_OnClick">
 								<StackPanel Orientation="Horizontal">
-									<fa:ImageAwesome Height="21" Icon="Solid_PlusCircle" Margin="0,0,3,0">
-										<fa:ImageAwesome.Foreground>
-											<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-												<GradientStop Color="#FFF70C0C" Offset="1"/>
-												<GradientStop Color="#FF9713C9" Offset="0"/>
-											</LinearGradientBrush>
-										</fa:ImageAwesome.Foreground>
-									</fa:ImageAwesome>
+									<fa:ImageAwesome Height="21" Icon="Solid_PlusCircle" Margin="0,0,3,0"
+									                 Foreground="DarkBlue"/>
 									<TextBlock Text="Добавить"/>
 								</StackPanel>
 							</Button>
-							<Button>
-								<fa:ImageAwesome Height="21" Icon="Solid_UserEdit">
-									<fa:ImageAwesome.Foreground>
-										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#FFF70C0C" Offset="1"/>
-											<GradientStop Color="#FF9713C9" Offset="0"/>
-										</LinearGradientBrush>
-									</fa:ImageAwesome.Foreground>
-								</fa:ImageAwesome>
+							<Button Click="ConsignorEdit_OnClick">
+								<fa:ImageAwesome Height="21" Icon="Solid_UserEdit" Foreground="DarkOrange"/>
 							</Button>
 							<Button>
-								<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt">
-									<fa:ImageAwesome.Foreground>
-										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#FFF70C0C" Offset="1"/>
-											<GradientStop Color="#FF9713C9" Offset="0"/>
-										</LinearGradientBrush>
-									</fa:ImageAwesome.Foreground>
-								</fa:ImageAwesome>
+								<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt" Foreground="Red"/>
 							</Button>
 						</ToolBar>
 						<ToolBar Band="1" BandIndex="1">
@@ -110,14 +97,14 @@
 								</StackPanel>
 							</Button>
 							<Button>
-								<fa:ImageAwesome Height="21" Icon="Solid_UserEdit" Foreground="DarkRed"/>
+								<fa:ImageAwesome Height="21" Icon="Solid_UserEdit" Foreground="DarkOrange"/>
 							</Button>
 							<Button>
-								<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt" Foreground="DarkGreen"/>
+								<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt" Foreground="Red"/>
 							</Button>
 						</ToolBar>
 					</ToolBarTray>
-					<DataGrid Grid.Row="1" AutoGenerateColumns="False"
+					<DataGrid Grid.Row="1" AutoGenerateColumns="False" Name="RecepientList"
 					          ItemsSource="{x:Static data:TestData.Recipients}"
 					          GridLinesVisibility="Vertical" VerticalGridLinesBrush="Gray"
 					          AlternatingRowBackground="#FFCAC0E0" CanUserAddRows="False"
@@ -149,7 +136,12 @@
 										<Setter Property="Margin" Value="3"/>
 									</Style>
 								</StackPanel.Resources>
-								<Button Content="Отправить сейчас"/>
+								<Button Click="SendNow_OnClick">
+									<StackPanel Orientation="Horizontal">
+										<fa:ImageAwesome Height="15" Icon="Solid_Envelope" Margin="0,0,3,0"/>
+										<TextBlock Text="Отправить сейчас"></TextBlock>
+									</StackPanel>
+								</Button>
 								<Button Content="Запланировать"/>
 							</StackPanel>
 						</StackPanel>
@@ -232,7 +224,7 @@
 					</GroupBox>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Письма">
+			<TabItem Header="Письма" Name="TabMessage">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" MinWidth="150" MaxWidth="250"/>
@@ -253,7 +245,7 @@
 								<TextBox Text="{Binding SelectedItem.Title, ElementName=MessagesList}"/>
 							</GroupBox>
 							<GroupBox Header="Текст письма">
-								<TextBox Text="{Binding SelectedItem.Text, ElementName=MessagesList}"
+								<TextBox Name="txtbMessageBody" Text="{Binding SelectedItem.Text, ElementName=MessagesList}"
 								         AcceptsReturn="True" AcceptsTab="True"/>
 							</GroupBox>
 						</DockPanel>

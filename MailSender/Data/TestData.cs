@@ -6,16 +6,14 @@ namespace MailSender.Data
 {
 	public class TestData
 	{
-		public static List<Server> Servers { get; } = Enumerable.Range(1, 10)
-			.Select(i => new Server
-			{
-				Name = $"Сервер {i}",
-				Address = $"smtp.server-{i}.ru",
-				Login = $"User-{i}",
-				Password = $"Password - {i}",
-				UseSSL = i % 2 == 0
-			})
-			.ToList();
+		public static List<Server> Servers { get; } = new List<Server>()
+		{
+			new Server() {Address = "smtp.yandex.ru", Login = "", Password = "", Name = "Yandex", UseSSL = true},
+			new Server() {Address = "smtp.gmail.com", Login = "", Password = "", Name = "Google", UseSSL = true},
+			new Server() {Address = "smtp-mail.outlook.com", Login = "", Password = "", Name = "Outlook", UseSSL = true},
+			new Server() {Address = "smtp.mail.ru", Login = "", Password = "", Name = "Mail.ru", UseSSL = true},
+			new Server() {Address = "smtp.mail.me.com", Login = "", Password = "", Name = "ICloud", UseSSL = true, Port = 587}
+		};
 
 		public static List<Consignor> Consignors { get; } = Enumerable.Range(1, 10)
 			.Select(i => new Consignor
