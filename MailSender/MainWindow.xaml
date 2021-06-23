@@ -46,22 +46,22 @@
 							          ItemsSource="{Binding Servers}"
 							          DisplayMemberPath="Name"/>
 							<Button fa:Awesome.Content="Solid_Download" Command="{Binding LoadServersCommand}"/>
-							<Button Click="AddServer_OnClick">
+							<Button>
 								<StackPanel Orientation="Horizontal">
 									<Image Height="21" Source="Media/add.png" Margin="0,0,3,0"/>
 									<TextBlock Text="Добавить"/>
 								</StackPanel>
 							</Button>
-							<Button ToolTip="Редактировать" Click="EditServer_OnClick">
+							<Button ToolTip="Редактировать">
 								<Image Height="21" Source="Media/edit.png"/>
 							</Button>
-							<Button ToolTip="Удалить" Click="DeleteServer_OnClick">
+							<Button ToolTip="Удалить">
 								<Image Height="21" Source="Media/remove.png"/>
 							</Button>
 						</ToolBar>
 						<ToolBar>
 							<Label Content="Планировщик" Margin="0, 0, 10, 0"/>
-							<Button Click="OpenScheduler_OnClick">
+							<Button>
 								<fa:ImageAwesome Height="21" Icon="Solid_Clock">
 									<fa:ImageAwesome.Foreground>
 										<RadialGradientBrush>
@@ -84,14 +84,14 @@
 									</DataTemplate>
 								</ComboBox.ItemTemplate>
 							</ComboBox>
-							<Button Click="ConsignorAdd_OnClick">
+							<Button>
 								<StackPanel Orientation="Horizontal">
 									<fa:ImageAwesome Height="21" Icon="Solid_PlusCircle" Margin="0,0,3,0"
 									                 Foreground="DarkBlue"/>
 									<TextBlock Text="Добавить"/>
 								</StackPanel>
 							</Button>
-							<Button Click="ConsignorEdit_OnClick">
+							<Button>
 								<fa:ImageAwesome Height="21" Icon="Solid_UserEdit" Foreground="DarkOrange"/>
 							</Button>
 							<Button>
