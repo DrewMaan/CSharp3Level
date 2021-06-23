@@ -36,5 +36,12 @@
 		</Canvas>
 		<TextBox HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Width="160" 
 		         Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+
+		<Button Content="Push" Width="70" Height="40" FontSize="20"
+		        VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40"
+		        Command="{Binding ShowMessageCommand}"
+		        CommandParameter="{Binding ElementName=Angle, Path=Value}">
+
+		</Button>
 	</Grid>
 </Window>
