@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using MailSender.Interfaces;
+using MailSender.Servcies;
+using MailSender.Services;
+using MailSender.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace MailSender
 {
@@ -13,5 +14,43 @@ namespace MailSender
 	/// </summary>
 	public partial class App : Application
 	{
+		private static IHost _hosting;
+
+		public static IHost Hosting
+		{
+			get
+			{
+				if (_hosting != null) return _hosting; 
+				var host_builder = Host.CreateDefaultBuilder(Environment.GetCommandLineArgs());
+				host_builder.ConfigureServices(ConfigureServices);
+				return _hosting = host_builder.Build();
+			}
+		}
+
+		public static IServiceProvider Services => Hosting.Services;
+
+		private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
+		{
+			services.AddSingleton<MainWindowViewModel>();
+			services.AddSingleton<ServersRepository>();
+
+			services.AddSingleton<IStatistic, InMemoryStatisticService>();
+			services.AddSingleton<IMailService, DebugMailService>();
+		}
+
+		protected override void OnStartup(StartupEventArgs e)
+		{
+			Hosting.Start();
+			base.OnStartup(e);
+
+			//var services = new ServiceCollection();
+			//services.AddScoped<MainWindowViewModel>();
+		}
+
+		protected override void OnExit(ExitEventArgs e)
+		{
+			base.OnExit(e);
+			Hosting.Dispose();
+		}
 	}
 }
