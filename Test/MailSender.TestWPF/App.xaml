@@ -4,10 +4,6 @@
              xmlns:local="clr-namespace:MailSender.TestConsole"
              StartupUri="WpfMailSender.xaml">
 	<Application.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Theme.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
+
 	</Application.Resources>
 </Application>
