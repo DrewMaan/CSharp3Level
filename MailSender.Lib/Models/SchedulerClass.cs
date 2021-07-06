@@ -54,8 +54,8 @@ namespace MailSender.Models
 		{
 			if (_dtSend.ToShortTimeString() == DateTime.Now.ToShortTimeString())
 			{
-				_mailSenderService.SendMails(_messages);
-				MessageBox.Show("Письма отправлены.");
+				//_mailSenderService.SendMails(_messages);
+				//MessageBox.Show("Письма отправлены.");
 			}
 		}
 

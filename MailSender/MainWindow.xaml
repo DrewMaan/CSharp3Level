@@ -8,6 +8,7 @@
         xmlns:local="clr-namespace:MailSender"
 		xmlns:data="clr-namespace:MailSender.Data"
 		xmlns:model="clr-namespace:MailSender.Models;assembly=MailSender.Lib"
+		xmlns:ucs="clr-namespace:MailSender;assembly=MailSender.Lib.UI"
 		DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
         Title="{Binding Title}" Height="450" Width="800">
 	<i:Interaction.Triggers>
@@ -71,6 +72,11 @@
 									</fa:ImageAwesome.Foreground>
 								</fa:ImageAwesome>
 							</Button>
+						</ToolBar>
+						<ToolBar Band="1" BandIndex="0">
+							<ucs:MyToolBar Header="Отправители">
+
+							</ucs:MyToolBar>
 						</ToolBar>
 						<ToolBar Band="1" BandIndex="0">
 							<Label Content="Отправители"/>
