@@ -44,14 +44,11 @@ namespace MailSender.ViewModels
 		#endregion
 
 		private ObservableCollection<Server> _servers;
+
 		/// <summary>
 		/// Список серверов
 		/// </summary>
-		public ObservableCollection<Server> Servers
-		{
-			get => _servers;
-			set => _ = Set(ref _servers, value);
-		}
+		public ObservableCollection<Server> Servers = new ObservableCollection<Server>();
 
 		private ObservableCollection<Consignor> _consignors;
 		/// <summary>

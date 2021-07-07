@@ -1,13 +1,13 @@
 ﻿using System.Windows.Controls;
 
-namespace MailSender
+namespace MailSender.Controls
 {
 	/// <summary>
 	/// Логика взаимодействия для MyTabControl.xaml
 	/// </summary>
-	public partial class MyToolBar : UserControl
+	public partial class ServersToolBar : UserControl
 	{
-		public MyToolBar()
+		public ServersToolBar()
 		{
 			InitializeComponent();
 		}

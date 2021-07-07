@@ -32,10 +32,16 @@ namespace MailSender
 		private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
 		{
 			services.AddSingleton<MainWindowViewModel>();
+			services.AddSingleton<ServersToolBarViewModel>();
+			services.AddSingleton<ConsignorsToolBarViewModel>();
 			services.AddSingleton<ServersRepository>();
+			services.AddSingleton<ConsignorsRepository>();
 
 			services.AddSingleton<IStatistic, InMemoryStatisticService>();
 			services.AddSingleton<IMailService, DebugMailService>();
+
+			services.AddScoped<IServerUserDialog, WindowServerUserDialogServer>();
+			services.AddScoped<IConsignorUserDialog, WindowConsignorUserDialog>();
 		}
 
 		protected override void OnStartup(StartupEventArgs e)

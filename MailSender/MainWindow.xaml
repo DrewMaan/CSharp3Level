@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:MailSender"
 		xmlns:data="clr-namespace:MailSender.Data"
 		xmlns:model="clr-namespace:MailSender.Models;assembly=MailSender.Lib"
-		xmlns:ucs="clr-namespace:MailSender;assembly=MailSender.Lib.UI"
+		xmlns:controls="clr-namespace:MailSender.Controls"
 		DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
         Title="{Binding Title}" Height="450" Width="800">
 	<i:Interaction.Triggers>
@@ -42,23 +42,7 @@
 					</Grid.RowDefinitions>
 					<ToolBarTray>
 						<ToolBar>
-							<Label Content="Сервера" Margin="0,0,10,0"/>
-							<ComboBox Width="120" SelectedIndex="0" Name="ServersList"
-							          ItemsSource="{Binding Servers}"
-							          DisplayMemberPath="Name"/>
-							<Button fa:Awesome.Content="Solid_Download" Command="{Binding LoadServersCommand}"/>
-							<Button>
-								<StackPanel Orientation="Horizontal">
-									<Image Height="21" Source="Media/add.png" Margin="0,0,3,0"/>
-									<TextBlock Text="Добавить"/>
-								</StackPanel>
-							</Button>
-							<Button ToolTip="Редактировать">
-								<Image Height="21" Source="Media/edit.png"/>
-							</Button>
-							<Button ToolTip="Удалить">
-								<Image Height="21" Source="Media/remove.png"/>
-							</Button>
+							<controls:ServersToolBar/>
 						</ToolBar>
 						<ToolBar>
 							<Label Content="Планировщик" Margin="0, 0, 10, 0"/>
@@ -73,12 +57,7 @@
 								</fa:ImageAwesome>
 							</Button>
 						</ToolBar>
-						<ToolBar Band="1" BandIndex="0">
-							<ucs:MyToolBar Header="Отправители">
-
-							</ucs:MyToolBar>
-						</ToolBar>
-						<ToolBar Band="1" BandIndex="0">
+						<!--<ToolBar Band="1" BandIndex="0">
 							<Label Content="Отправители"/>
 							<ComboBox Width="120" SelectedIndex="0" Name="ConsignorsList" ItemsSource="{Binding Consignors}">
 								<ComboBox.ItemTemplate>
@@ -103,6 +82,9 @@
 							<Button>
 								<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt" Foreground="Red"/>
 							</Button>
+						</ToolBar>-->
+						<ToolBar Band="1" BandIndex="0">
+							<controls:ConsignorsToolbBar/>
 						</ToolBar>
 						<ToolBar Band="1" BandIndex="1">
 							<Label Content="Получатели"/>

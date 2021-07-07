@@ -1,20 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using MailSender.Models;
 
 namespace MailSender.ViewModels.Base
 {
-	public class MyToolBarViewModelBase : ViewModel
+	public class MyToolBarViewModelBase<T> : ViewModel
 	{
-		private readonly string _header;
+		protected string _title;
+		private T _selectedItem;
 
-		MyToolBarViewModelBase(string header)
+		protected MyToolBarViewModelBase()
 		{
-			_header = header;
 		}
 
-		public string Header => _header;
+		public string Title
+		{
+			get => _title;
+		}
+
+		public T SelectedItem
+		{
+			get => _selectedItem;
+			set => _ = Set(ref _selectedItem, value);
+		}
+
+		public ObservableCollection<T> Items { get; } = new ObservableCollection<T>();
 	}
 }

@@ -1,31 +1,34 @@
-﻿<Window x:Class="MailSender.ConsignorEditDialog"
+﻿<Window x:Class="MailSender.Views.ConsignorEditDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
+		xmlns:vm="clr-namespace:MailSender.ViewModels"
         mc:Ignorable="d"
+		d:DataContext="{d:DesignInstance vm:ConsignorsEditDialogViewModel, IsDesignTimeCreatable=True}"
         Title="ConsignorEditDialog" Height="215" Width="300">
 	<DockPanel Margin="0,0,0,-6">
 
 		<UniformGrid DockPanel.Dock="Bottom"
 		             Rows="1" HorizontalAlignment="Right"
-		             Margin="0,10,10,10"
-		             Button.Click="OnButtonClick">
-			<Button Content="Ok" IsDefault="True" Margin="0,0,3,0" Height="25" Width="80"/>
-			<Button Content="Cancel" IsCancel="True"/>
+		             Margin="0,10,10,10">
+			<Button Content="Ok" IsDefault="True" Margin="0,0,3,0" Height="25" Width="80"
+			        Command="{Binding OkCommand}"/>
+			<Button Content="Cancel" IsCancel="True"
+			        Command="{Binding CancelCommand}"/>
 		</UniformGrid>
 
 		<GroupBox Header="Имя отправителя:" DockPanel.Dock="Top">
-			<TextBox Name="ConsignorName" x:FieldModifier="private"/>
+			<TextBox Text="{Binding Name}"/>
 		</GroupBox>
 		<Border DockPanel.Dock="Top">
 			<GroupBox Header="Адрес отправителя" DockPanel.Dock="Left">
-				<TextBox Name="ConsignorAddress"/>
+				<TextBox Text="{Binding Address}"/>
 			</GroupBox>
 		</Border>
 		<GroupBox Header="Описание">
-			<TextBox Name="ConsignorDescription"/>
+			<TextBox Text="{Binding Descriprion}"/>
 		</GroupBox>
 	</DockPanel>
 </Window>

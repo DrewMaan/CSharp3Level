@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MailSender.Models;
 
@@ -13,6 +14,7 @@ namespace MailSender.Servcies
 			_Servers = Enumerable.Range(1, 10)
 				.Select(i => new Server
 				{
+					Id = i,
 					Name = $"Сервер {i}",
 					Address = $"smtp.server-{i}.ru",
 					Login = $"User-{i}",
@@ -47,6 +49,21 @@ namespace MailSender.Servcies
 		public void Remove(Server server)
 		{
 			_Servers.Remove(server);
+		}
+
+		public void Update(Server server)
+		{
+			if (server is null) throw new ArgumentNullException(nameof(server));
+			
+			var repoServer = _Servers.FirstOrDefault(i => i.Id == server.Id);
+			if(repoServer is null || ReferenceEquals(repoServer, server)) return;
+
+			repoServer.Name = server.Name;
+			repoServer.Address = server.Address;
+			repoServer.Port = server.Port;
+			repoServer.UseSSL = server.UseSSL;
+			repoServer.Login = server.Login;
+			repoServer.Password = server.Password;
 		}
 	}
 }
