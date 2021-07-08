@@ -5,4 +5,8 @@
     <RootNamespace>MailSender</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+  </ItemGroup>
+
 </Project>
