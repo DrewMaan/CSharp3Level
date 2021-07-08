@@ -102,7 +102,8 @@
 							</Button>
 						</ToolBar>
 					</ToolBarTray>
-					<DataGrid Grid.Row="1" AutoGenerateColumns="False" Name="RecepientList"
+					<controls:RecepientListView Grid.Row="1"/>
+					<!--<DataGrid Grid.Row="1" AutoGenerateColumns="False" Name="RecepientList"
 					          ItemsSource="{Binding Recipients}"
 					          GridLinesVisibility="Vertical" VerticalGridLinesBrush="Gray"
 					          AlternatingRowBackground="#FFCAC0E0" CanUserAddRows="False"
@@ -113,7 +114,7 @@
 							<DataGridTextColumn Header="Адрес" MinWidth="140" Binding="{Binding Address}"/>
 							<DataGridTextColumn Header="Описание" MinWidth="160" Binding="{Binding Description}"/>
 						</DataGrid.Columns>
-					</DataGrid>
+					</DataGrid>-->
 				</Grid>
 			</TabItem>
 			<TabItem Header="Расписание" x:Name="TabScheduler">
