@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MailSender.Lib.UI\MailSender.Lib.UI.csproj" />
     <ProjectReference Include="..\MailSender.Lib\MailSender.Lib.csproj" />
   </ItemGroup>
 
