@@ -9,6 +9,7 @@
 		xmlns:data="clr-namespace:MailSender.Data"
 		xmlns:model="clr-namespace:MailSender.Models;assembly=MailSender.Lib"
 		xmlns:controls="clr-namespace:MailSender.Controls"
+		xmlns:ex="http://schemas.xceed.com/wpf/xaml/toolkit"
 		DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
         Title="{Binding Title}" Height="450" Width="800">
 	<i:Interaction.Triggers>
@@ -128,7 +129,7 @@
 							<TextBlock Text="Дата отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 							<Calendar/>
 							<TextBlock Text="Время отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-							<TextBox Margin="3, 0"/>
+							<ex:TimePicker Margin="3, 3"/>
 							<StackPanel>
 								<StackPanel.Resources>
 									<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
