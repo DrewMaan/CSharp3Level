@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MailSender.Models;
 
@@ -21,7 +22,17 @@ namespace MailSender.Services.InMemory
 
 		public override void Update(Server item)
 		{
-			throw new System.NotImplementedException();
+			if (item is null) throw new ArgumentNullException(nameof(item));
+
+			var dbItem = GetById(item.Id);
+			if (dbItem is null || ReferenceEquals(dbItem, item)) return;
+
+			dbItem.Name = item.Name;
+			dbItem.Address = item.Address;
+			dbItem.Port = item.Port;
+			dbItem.UseSSL = item.UseSSL;
+			dbItem.Login = item.Login;
+			dbItem.Password = item.Password;
 		}
 	}
 }
