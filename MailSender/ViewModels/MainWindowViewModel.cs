@@ -5,20 +5,30 @@ using MailSender.Data;
 using MailSender.Infrastructure.Commands;
 using MailSender.Interfaces;
 using MailSender.Models;
-using MailSender.Servcies;
 using MailSender.ViewModels.Base;
 
 namespace MailSender.ViewModels
 {
 	public class MainWindowViewModel : ViewModel
 	{
-		private readonly ServersRepository _serversRepository;
+		private readonly IRepository<Server> _serversRepository;
+		private readonly IRepository<Consignor> _consignorsRepository;
+		private readonly IRepository<Recipient> _recipientsRepository;
+		private readonly IRepository<Message> _messagesRepository;
 		private readonly IMailService _MailService;
 		private readonly IStatistic _Statistic;
 
-		public MainWindowViewModel(ServersRepository serversRepository, IMailService mailService, IStatistic statistic)
+		public MainWindowViewModel(IRepository<Server> serversRepository,
+			IRepository<Consignor> consignorsRepository,
+			IRepository<Recipient> recipientsRepository,
+			IRepository<Message> messagesRepository,
+			IMailService mailService, 
+			IStatistic statistic)
 		{
 			_serversRepository = serversRepository;
+			_consignorsRepository = consignorsRepository;
+			_recipientsRepository = recipientsRepository;
+			_messagesRepository = messagesRepository;
 			_MailService = mailService;
 			_Statistic = statistic;
 		}
