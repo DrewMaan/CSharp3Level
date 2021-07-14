@@ -5,7 +5,7 @@ using MailSender.Models;
 
 namespace MailSender.Services.InMemory
 {
-	public class InMemoryServerRepository : InMemoryRepository<Server>
+	public class InMemoryServersRepository : InMemoryRepository<Server>
 	{
 		private static IEnumerable<Server> GetTestData(int count = 10) => Enumerable.Range(1, count)
 			.Select(i => new Server
@@ -18,7 +18,7 @@ namespace MailSender.Services.InMemory
 				UseSSL = i % 2 == 0
 			});
 
-		public InMemoryServerRepository() : base(GetTestData()) { }
+		public InMemoryServersRepository() : base(GetTestData()) { }
 
 		public override void Update(Server item)
 		{

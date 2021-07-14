@@ -7,7 +7,7 @@ namespace MailSender.Services.InMemory
 {
 	public class InMemoryConsignorsRepository : InMemoryRepository<Consignor>
 	{
-		private static IEnumerable<Consignor> GetTestData(int count = 10) => Enumerable.Range(1, 10)
+		private static IEnumerable<Consignor> GetTestData(int count = 10) => Enumerable.Range(1, count)
 			.Select(i => new Consignor
 			{
 				Id = i,

@@ -5,9 +5,9 @@ using MailSender.Models;
 
 namespace MailSender.Services.InMemory
 {
-	public class InMemoryRecipientRepository : InMemoryRepository<Recipient>
+	public class InMemoryRecipientsRepository : InMemoryRepository<Recipient>
 	{
-		private static IEnumerable<Recipient> GetTestData(int count = 10) => Enumerable.Range(1, 10)
+		private static IEnumerable<Recipient> GetTestData(int count = 10) => Enumerable.Range(1, count)
 			.Select(i => new Recipient
 			{
 				Id = i,
@@ -16,7 +16,7 @@ namespace MailSender.Services.InMemory
 				Description = $"Описание отправителя {i}",
 			});
 
-		public InMemoryRecipientRepository() : base(GetTestData())
+		public InMemoryRecipientsRepository() : base(GetTestData())
 		{
 		}
 
