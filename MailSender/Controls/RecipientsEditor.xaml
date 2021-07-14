@@ -22,8 +22,11 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:" Margin="3,0" 
                    HorizontalAlignment="Right"
                    />
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" 
-                 Text="{Binding SelectedRecipient.Id}"/>
+        <!--NotifyOnValidationError позволяет получить уведомление что произошлка ошибка
+			Validation.Error="OnIdValidationError" событие с помощью которого можно обработать ошибку-->
+		<TextBox Grid.Row="0" Grid.Column="1" Margin="3" 
+                 Text="{Binding SelectedRecipient.Id, NotifyOnValidationError=True}"
+                 Validation.Error="OnIdValidationError"/>
 
 		<TextBlock Grid.Row="1" Grid.Column="0" Text="Имя:" Margin="3,0" 
 		           HorizontalAlignment="Right"/>
