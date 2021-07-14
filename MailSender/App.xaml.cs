@@ -2,7 +2,6 @@
 using System.Windows;
 using MailSender.Interfaces;
 using MailSender.Models;
-using MailSender.Servcies;
 using MailSender.Services;
 using MailSender.Services.InMemory;
 using MailSender.ViewModels;

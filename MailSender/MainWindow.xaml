@@ -58,32 +58,6 @@
 								</fa:ImageAwesome>
 							</Button>
 						</ToolBar>
-						<!--<ToolBar Band="1" BandIndex="0">
-							<Label Content="Отправители"/>
-							<ComboBox Width="120" SelectedIndex="0" Name="ConsignorsList" ItemsSource="{Binding Consignors}">
-								<ComboBox.ItemTemplate>
-									<DataTemplate DataType="{x:Type model:Consignor}">
-										<StackPanel Orientation="Horizontal" ToolTip="{Binding Description}">
-											<TextBlock Text="{Binding Name}" Margin="0,0,3,0"/>
-											<TextBlock Text="{Binding Address}" Opacity="0.5"/>
-										</StackPanel>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							</ComboBox>
-							<Button>
-								<StackPanel Orientation="Horizontal">
-									<fa:ImageAwesome Height="21" Icon="Solid_PlusCircle" Margin="0,0,3,0"
-									                 Foreground="DarkBlue"/>
-									<TextBlock Text="Добавить"/>
-								</StackPanel>
-							</Button>
-							<Button>
-								<fa:ImageAwesome Height="21" Icon="Solid_UserEdit" Foreground="DarkOrange"/>
-							</Button>
-							<Button>
-								<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt" Foreground="Red"/>
-							</Button>
-						</ToolBar>-->
 						<ToolBar Band="1" BandIndex="0">
 							<controls:ConsignorsToolbBar/>
 						</ToolBar>
@@ -104,18 +78,6 @@
 						</ToolBar>
 					</ToolBarTray>
 					<controls:RecepientListView Grid.Row="1"/>
-					<!--<DataGrid Grid.Row="1" AutoGenerateColumns="False" Name="RecepientList"
-					          ItemsSource="{Binding Recipients}"
-					          GridLinesVisibility="Vertical" VerticalGridLinesBrush="Gray"
-					          AlternatingRowBackground="#FFCAC0E0" CanUserAddRows="False"
-					          HeadersVisibility="Column">
-						<DataGrid.Columns>
-							<DataGridTextColumn Header="Id" MinWidth="40" MaxWidth="80" Binding="{Binding Id}"/>
-							<DataGridTextColumn Header="Имя" Width="*" MinWidth="150" Binding="{Binding Name}"/>
-							<DataGridTextColumn Header="Адрес" MinWidth="140" Binding="{Binding Address}"/>
-							<DataGridTextColumn Header="Описание" MinWidth="160" Binding="{Binding Description}"/>
-						</DataGrid.Columns>
-					</DataGrid>-->
 				</Grid>
 			</TabItem>
 			<TabItem Header="Расписание" x:Name="TabScheduler">

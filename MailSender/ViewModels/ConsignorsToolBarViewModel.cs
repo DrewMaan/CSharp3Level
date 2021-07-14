@@ -10,14 +10,14 @@ namespace MailSender.ViewModels
 {
 	public class ConsignorsToolBarViewModel : MyToolBarViewModelBase<Consignor>
 	{
-		private readonly ConsignorsRepository consignorsRepository;
-		private readonly IConsignorUserDialog consignorUserDialog;
+		private readonly IRepository<Consignor> _consignorsRepository;
+		private readonly IConsignorUserDialog _consignorUserDialog;
 
-		public ConsignorsToolBarViewModel(ConsignorsRepository consignorsRepository,
+		public ConsignorsToolBarViewModel(IRepository<Consignor> consignorsRepository,
 			IConsignorUserDialog consignorUserDialog)
 		{
-			this.consignorsRepository = consignorsRepository;
-			this.consignorUserDialog = consignorUserDialog;
+			_consignorsRepository = consignorsRepository;
+			_consignorUserDialog = consignorUserDialog;
 
 			_title = "Отправители";
 
@@ -26,7 +26,7 @@ namespace MailSender.ViewModels
 
 		private void Initialize()
 		{
-			foreach (var consignor in consignorsRepository.GetAll()) Items.Add(consignor);
+			foreach (var consignor in _consignorsRepository.GetAll()) Items.Add(consignor);
 		}
 
 		#region Commands
@@ -36,9 +36,9 @@ namespace MailSender.ViewModels
 
 		private void OnAddCommandExecute(object obj)
 		{
-			if (consignorUserDialog.AddConsignor(out var consignor))
+			if (_consignorUserDialog.AddConsignor(out var consignor))
 			{
-				consignorsRepository.Add(consignor);
+				_consignorsRepository.Add(consignor);
 				Items.Add(consignor);
 			}
 		}
@@ -50,8 +50,8 @@ namespace MailSender.ViewModels
 		private void OnEditCommandExecute(object obj)
 		{
 			if (obj is not Consignor consignor) return;
-			if (consignorUserDialog.EditConsignor(consignor))
-				consignorsRepository.Update(consignor);
+			if (_consignorUserDialog.EditConsignor(consignor))
+				_consignorsRepository.Update(consignor);
 		}
 
 		private ICommand _removeCommand;
@@ -62,7 +62,7 @@ namespace MailSender.ViewModels
 		{
 			if (obj is not Consignor consignor) return;
 			{
-				consignorsRepository.Remove(consignor);
+				_consignorsRepository.Remove(consignor.Id);
 				Items.Remove(consignor);
 			}
 		}

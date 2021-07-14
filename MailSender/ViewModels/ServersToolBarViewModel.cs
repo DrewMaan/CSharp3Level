@@ -2,20 +2,19 @@
 using MailSender.Infrastructure.Commands;
 using MailSender.Interfaces;
 using MailSender.Models;
-using MailSender.Servcies;
 using MailSender.ViewModels.Base;
 
 namespace MailSender.ViewModels
 {
 	public class ServersToolBarViewModel : MyToolBarViewModelBase<Server>
 	{
-		private ServersRepository serversRepository;
-		private IServerUserDialog serverDialog;
+		private IRepository<Server> _serversRepository;
+		private IServerUserDialog _serverDialog;
 
-		public ServersToolBarViewModel(ServersRepository serversRepository, IServerUserDialog serverDialog)
+		public ServersToolBarViewModel(IRepository<Server> serversRepository, IServerUserDialog serverDialog)
 		{
-			this.serversRepository = serversRepository;
-			this.serverDialog = serverDialog;
+			_serversRepository = serversRepository;
+			_serverDialog = serverDialog;
 			_title = "Список серверов";
 
 			Initialize();
@@ -23,8 +22,8 @@ namespace MailSender.ViewModels
 
 		private void Initialize()
 		{
-			if(serversRepository is null) return;
-			foreach (var server in serversRepository.GetAll()) Items.Add(server);
+			if(_serversRepository is null) return;
+			foreach (var server in _serversRepository.GetAll()) Items.Add(server);
 		}
 
 		#region Commands
@@ -34,9 +33,9 @@ namespace MailSender.ViewModels
 
 		private void OnAddCommandExecute(object obj)
 		{
-			if (serverDialog.AddServer(out var server))
+			if (_serverDialog.AddServer(out var server))
 			{
-				serversRepository.Add(server);
+				_serversRepository.Add(server);
 				Items.Add(server);
 			}
 		}
@@ -48,8 +47,8 @@ namespace MailSender.ViewModels
 		private void OnEditCommandExecute(object obj)
 		{
 			if (obj is not Server server) return;
-			if(serverDialog.EditServer(server))
-				serversRepository.Update(server);
+			if(_serverDialog.EditServer(server))
+				_serversRepository.Update(server);
 		}
 
 		private ICommand _removeCommand;
@@ -60,7 +59,7 @@ namespace MailSender.ViewModels
 		{
 			if (obj is not Server server) return;
 			{
-				serversRepository.Remove(server);
+				_serversRepository.Remove(server.Id);
 				Items.Remove(server);
 			}
 		}
