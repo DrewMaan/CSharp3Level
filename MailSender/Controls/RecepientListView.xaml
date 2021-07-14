@@ -21,9 +21,10 @@
 		</UniformGrid>
 		<DataGrid AutoGenerateColumns="False" Name="RecepientList"
 		          ItemsSource="{Binding Recipients}" Margin="10"
-		          GridLinesVisibility="Vertical" VerticalGridLinesBrush="Gray"
+		          GridLinesVisibility="Vertical" VerticalGridLinesBrush="Gray" IsReadOnly="True"
 		          AlternatingRowBackground="PowderBlue" CanUserAddRows="False"
-		          HeadersVisibility="Column">
+		          HeadersVisibility="Column"
+		          SelectedItem="{Binding SelectedRecipient}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Id" MinWidth="40" MaxWidth="80" Binding="{Binding Id}"/>
 				<DataGridTextColumn Header="Имя" Width="*" MinWidth="150" Binding="{Binding Name}"/>

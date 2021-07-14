@@ -80,6 +80,14 @@ namespace MailSender.ViewModels
 			set => _ = Set(ref _recipients, value);
 		}
 
+		private Recipient _selectedRecipient;
+
+		public Recipient SelectedRecipient
+		{
+			get => _selectedRecipient;
+			set => _ = Set(ref _selectedRecipient, value);
+		}
+
 		private ObservableCollection<Message> _messages;
 		/// <summary>
 		/// Список писем
