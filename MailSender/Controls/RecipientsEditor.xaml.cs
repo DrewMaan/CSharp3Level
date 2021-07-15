@@ -17,5 +17,14 @@ namespace MailSender.Controls
 			else
 				((Control)sender).ClearValue(ToolTipProperty);
 		}
+
+		private void OnNameValidationError(object sender, ValidationErrorEventArgs e)
+		{
+			// Увидеть текст ошибки в сплывающей подсказке
+			if (e.Action == ValidationErrorEventAction.Added)
+				((Control)sender).ToolTip = e.Error.ErrorContent.ToString();
+			else
+				((Control)sender).ClearValue(ToolTipProperty);
+		}
 	}
 }

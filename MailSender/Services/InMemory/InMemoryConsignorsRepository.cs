@@ -12,7 +12,7 @@ namespace MailSender.Services.InMemory
 			{
 				Id = i,
 				Name = $"Отправитель - {i}",
-				Address = $"sender-{i}.server.ru",
+				Address = $"consignor{i}@server.ru",
 				Description = $"Описание отправителя {i}",
 			});
 

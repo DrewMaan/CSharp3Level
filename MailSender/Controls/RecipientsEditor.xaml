@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:MailSender.Controls"
              xmlns:vm="clr-namespace:MailSender.ViewModels"
+             xmlns:validation="clr-namespace:MailSender.Infrastructure.Validation"
              DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -20,8 +21,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:" Margin="3,0" 
-                   HorizontalAlignment="Right"
-                   />
+                   HorizontalAlignment="Right"/>
         <!--NotifyOnValidationError позволяет получить уведомление что произошлка ошибка
 			Validation.Error="OnIdValidationError" событие с помощью которого можно обработать ошибку-->
 		<TextBox Grid.Row="0" Grid.Column="1" Margin="3" 
@@ -30,16 +30,45 @@
 
 		<TextBlock Grid.Row="1" Grid.Column="0" Text="Имя:" Margin="3,0" 
 		           HorizontalAlignment="Right"/>
+        <!--NotifyOnValidationError позволяет получить уведомление что произошлка ошибка
+			Validation.Error="OnIdValidationError" событие с помощью которого можно обработать ошибку
+			ValidatesOnExceptions экспешены данных(свойств) интерпритируются как ошибки валидации-->
 		<TextBox Grid.Row="1" Grid.Column="1" Margin="3"
-		         Text="{Binding SelectedRecipient.Name}"/>
+		         Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, ValidatesOnDataErrors=True}"
+		         Validation.Error="OnNameValidationError"/>
 
 		<TextBlock Grid.Row="2" Grid.Column="0" Text="Адрес:" Margin="3,0"
 		           HorizontalAlignment="Right"/>
 		<TextBox Grid.Row="2" Grid.Column="1" Margin="3"
-		         Text="{Binding SelectedRecipient.Address}"/>
+		         Validation.Error="OnNameValidationError">
+			<Validation.ErrorTemplate>
+				<ControlTemplate>
+                    <DockPanel>
+                        <TextBlock Text="!" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center"
+                                   Margin="3,0,0,0" DockPanel.Dock="Right"/>
+	                    <Border BorderBrush="Red" BorderThickness="3" CornerRadius="3" Padding="3">
+                            <AdornedElementPlaceholder/>
+						</Border>
+                    </DockPanel>
+				</ControlTemplate>
+			</Validation.ErrorTemplate>
+			<TextBox.Text>
+                <Binding Path="SelectedRecipient.Address"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:RegexValidation Pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                                                    ErroeMessage="Неверный формат адреса электронной почты"/>
+	                    <DataErrorValidationRule/>
+                        <ExceptionValidationRule/>
+                        <NotifyDataErrorValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+			</TextBox.Text>
+		</TextBox>
 
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Описание:" Margin="3,0"
-		           HorizontalAlignment="Right"/>
+			           HorizontalAlignment="Right"/>
 		<TextBox Grid.Row="3" Grid.Column="1" Margin="3"
 		         Text="{Binding SelectedRecipient.Description}"/>
 	</Grid>
