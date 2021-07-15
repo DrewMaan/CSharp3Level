@@ -9,7 +9,25 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10">
-        <Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+	                    <ControlTemplate>
+	                        <DockPanel>
+		                        <TextBlock Text="!" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center"
+		                                   Margin="3,0,0,0" DockPanel.Dock="Right"/>
+		                        <Border BorderBrush="Red" BorderThickness="3" CornerRadius="3" Padding="3">
+			                        <AdornedElementPlaceholder/>
+		                        </Border>
+	                        </DockPanel>
+					    </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+	    <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -24,7 +42,7 @@
                    HorizontalAlignment="Right"/>
         <!--NotifyOnValidationError позволяет получить уведомление что произошлка ошибка
 			Validation.Error="OnIdValidationError" событие с помощью которого можно обработать ошибку-->
-		<TextBox Grid.Row="0" Grid.Column="1" Margin="3" 
+		<TextBox Grid.Row="0" Grid.Column="1" 
                  Text="{Binding SelectedRecipient.Id, NotifyOnValidationError=True}"
                  Validation.Error="OnIdValidationError"/>
 
@@ -33,25 +51,14 @@
         <!--NotifyOnValidationError позволяет получить уведомление что произошлка ошибка
 			Validation.Error="OnIdValidationError" событие с помощью которого можно обработать ошибку
 			ValidatesOnExceptions экспешены данных(свойств) интерпритируются как ошибки валидации-->
-		<TextBox Grid.Row="1" Grid.Column="1" Margin="3"
+		<TextBox Grid.Row="1" Grid.Column="1"
 		         Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True, ValidatesOnExceptions=True, ValidatesOnDataErrors=True}"
 		         Validation.Error="OnNameValidationError"/>
 
 		<TextBlock Grid.Row="2" Grid.Column="0" Text="Адрес:" Margin="3,0"
 		           HorizontalAlignment="Right"/>
-		<TextBox Grid.Row="2" Grid.Column="1" Margin="3"
+		<TextBox Grid.Row="2" Grid.Column="1"
 		         Validation.Error="OnNameValidationError">
-			<Validation.ErrorTemplate>
-				<ControlTemplate>
-                    <DockPanel>
-                        <TextBlock Text="!" FontWeight="Bold" Foreground="Red" VerticalAlignment="Center"
-                                   Margin="3,0,0,0" DockPanel.Dock="Right"/>
-	                    <Border BorderBrush="Red" BorderThickness="3" CornerRadius="3" Padding="3">
-                            <AdornedElementPlaceholder/>
-						</Border>
-                    </DockPanel>
-				</ControlTemplate>
-			</Validation.ErrorTemplate>
 			<TextBox.Text>
                 <Binding Path="SelectedRecipient.Address"
                          NotifyOnValidationError="True"
@@ -69,7 +76,7 @@
 
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Описание:" Margin="3,0"
 			           HorizontalAlignment="Right"/>
-		<TextBox Grid.Row="3" Grid.Column="1" Margin="3"
+		<TextBox Grid.Row="3" Grid.Column="1"
 		         Text="{Binding SelectedRecipient.Description}"/>
 	</Grid>
 </UserControl>
