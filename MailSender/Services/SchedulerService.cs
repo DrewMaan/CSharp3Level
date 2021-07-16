@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Threading;
 using MailSender.Interfaces;
 using MailSender.Models;
@@ -22,10 +20,9 @@ namespace MailSender.Services
 			return tsSendTime;
 		}
 
-		public void SendEmails(DateTime timeSend, IMailService mailService, MessageTask messageTask)
+		public void SendEmails(IMailService mailService, MessageTask messageTask)
 		{
 			this.mailService = mailService;
-			this.timeSend = timeSend;
 			_messageTask = messageTask;
 			dispatcherTimer.Tick += DispatcherTimer_Tick;
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);

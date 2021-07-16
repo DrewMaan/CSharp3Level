@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using MailSender.Models;
 
 namespace MailSender.Interfaces
@@ -8,6 +7,6 @@ namespace MailSender.Interfaces
 	{
 		TimeSpan GetSendTime(string sendTime);
 
-		void SendEmails(DateTime timeSend, IMailService mailService, MessageTask messageTask);
+		void SendEmails(IMailService mailService, MessageTask messageTask);
 	}
 }
