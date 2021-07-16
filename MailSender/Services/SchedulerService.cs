@@ -8,12 +8,12 @@ using MailSender.Models;
 
 namespace MailSender.Services
 {
-	public class SchedulerService
+	public class SchedulerService : ISchedulerService
 	{
 		private DispatcherTimer dispatcherTimer = new DispatcherTimer();
 		private IMailService mailService;
 		private DateTime timeSend;
-		private IQueryable<Message> mails;
+		private MessageTask _messageTask;
 
 		public TimeSpan GetSendTime(string sendTime)
 		{
@@ -22,11 +22,11 @@ namespace MailSender.Services
 			return tsSendTime;
 		}
 
-		public void SendEmails(DateTime timeSend, IMailService mailService, IQueryable<Message> mails)
+		public void SendEmails(DateTime timeSend, IMailService mailService, MessageTask messageTask)
 		{
 			this.mailService = mailService;
 			this.timeSend = timeSend;
-			this.mails = mails;
+			_messageTask = messageTask;
 			dispatcherTimer.Tick += DispatcherTimer_Tick;
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
 			dispatcherTimer.Start();
@@ -36,7 +36,7 @@ namespace MailSender.Services
 		{
 			if (timeSend.ToShortTimeString() == DateTime.Now.ToShortTimeString())
 			{
-				mailService.SendEmail(mails);
+				mailService.SendEmail(_messageTask);
 				dispatcherTimer.Stop();
 				MessageBox.Show("Письма отправлены");
 			}

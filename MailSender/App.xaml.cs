@@ -38,6 +38,7 @@ namespace MailSender
 
 			services.AddSingleton<IStatistic, InMemoryStatisticService>();
 			services.AddSingleton<IMailService, DebugMailService>();
+			services.AddSingleton<ISchedulerService, SchedulerService>();
 
 			services.AddScoped<IServerUserDialog, WindowServerUserDialogServer>();
 			services.AddScoped<IConsignorUserDialog, WindowConsignorUserDialog>();
@@ -46,6 +47,7 @@ namespace MailSender
 			services.AddSingleton<IRepository<Consignor>, InMemoryConsignorsRepository>();
 			services.AddSingleton<IRepository<Recipient>, InMemoryRecipientsRepository>();
 			services.AddSingleton<IRepository<Message>, InMemoryMessagesRepository>();
+			services.AddSingleton<IRepository<MessageTask>, InMemoryMessageTasksRepository>();
 		}
 
 		protected override void OnStartup(StartupEventArgs e)

@@ -17,12 +17,14 @@ namespace MailSender.Services
 			_Statistic.MessageSended();
 		}
 
-		public void SendEmail(IQueryable<Message> mails)
+		public void SendEmail(MessageTask messageTask)
 		{
-			foreach (var mail in mails)
+			foreach (var recipient in messageTask.Recipients)
 			{
-				Debug.WriteLine($"Отправка почты от отправитель к получатель: {mail.Title} - {mail.Text}");
-				_Statistic.MessageSended();
+				SendEmail(messageTask.Consignor.Address, 
+						recipient.Address, 
+						messageTask.Message.Title, 
+						messageTask.Message.Text);
 			}
 		}
 	}

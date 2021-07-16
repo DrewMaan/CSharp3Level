@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using MailSender.Data;
@@ -15,6 +16,8 @@ namespace MailSender.ViewModels
 		private readonly IRepository<Consignor> _consignorsRepository;
 		private readonly IRepository<Recipient> _recipientsRepository;
 		private readonly IRepository<Message> _messagesRepository;
+		private readonly IRepository<MessageTask> _messageTaskRepository;
+		private readonly ISchedulerService _schedulerService;
 		private readonly IMailService _MailService;
 		private readonly IStatistic _Statistic;
 
@@ -22,6 +25,8 @@ namespace MailSender.ViewModels
 			IRepository<Consignor> consignorsRepository,
 			IRepository<Recipient> recipientsRepository,
 			IRepository<Message> messagesRepository,
+			IRepository<MessageTask> messageTaskRepository,
+			ISchedulerService schedulerService,
 			IMailService mailService, 
 			IStatistic statistic)
 		{
@@ -29,6 +34,8 @@ namespace MailSender.ViewModels
 			_consignorsRepository = consignorsRepository;
 			_recipientsRepository = recipientsRepository;
 			_messagesRepository = messagesRepository;
+			_messageTaskRepository = messageTaskRepository;
+			_schedulerService = schedulerService;
 			_MailService = mailService;
 			_Statistic = statistic;
 		}
@@ -98,6 +105,34 @@ namespace MailSender.ViewModels
 			set => _ = Set(ref _messages, value);
 		}
 
+		private ObservableCollection<MessageTask> _messageTasks;
+		/// <summary>
+		/// Список заданий
+		/// </summary>
+		public ObservableCollection<MessageTask> MessageTasks
+		{
+			get => _messageTasks;
+			set => _ = Set(ref _messageTasks, value);
+		}
+
+		private MessageTask _selectedMessageTask;
+		/// <summary>
+		/// Список заданий
+		/// </summary>
+		public MessageTask SelectedMessageTask
+		{
+			get => _selectedMessageTask;
+			set => _ = Set(ref _selectedMessageTask, value);
+		}
+
+		private DateTime? _timeSend;
+
+		public DateTime? TimeSend
+		{
+			get => _timeSend;
+			set => _ = Set(ref _timeSend, value);
+		}
+
 		private ICommand _LoadDataCommand;
 
 		public ICommand LoadDataCommand => _LoadDataCommand ??= new LambdaCommand(OnLoadDataCommandExecuted);
@@ -108,6 +143,7 @@ namespace MailSender.ViewModels
 			Consignors = new ObservableCollection<Consignor>(TestData.Consignors); 
 			Recipients = new ObservableCollection<Recipient>(TestData.Recipients); 
 			Messages = new ObservableCollection<Message>(TestData.Messages);
+			MessageTasks = new ObservableCollection<MessageTask>(_messageTaskRepository.GetAll());
 		}
 
 		private ICommand _ExitCommand;
@@ -152,6 +188,30 @@ namespace MailSender.ViewModels
 		private void OnSendMessageCommandExecuted(object p)
 		{
 			_MailService.SendEmail("Отправитель", "Получатель", "Тема", "Тело письма");
+		}
+
+		#endregion
+
+		#region Command ScheduleMessageCommand - Отправка почты
+
+		/// <summary>Отправка почты</summary>
+		private LambdaCommand _scheduleMessageCommand;
+
+		/// <summary>Отправка почты</summary>
+		public ICommand ScheduleMessageCommand => _scheduleMessageCommand
+			??= new(OnScheduleMessageCommandExecuted);
+
+		/// <summary>Логика выполнения - Отправка почты</summary>
+		private void OnScheduleMessageCommandExecuted(object p)
+		{
+			if (TimeSend is null)
+			{
+				MessageBox.Show("Время отправки писем не задано!", "Ошибка планировщика", MessageBoxButton.OK,
+					MessageBoxImage.Error);
+				return;
+			}
+
+			_schedulerService.SendEmails(TimeSend.Value, _MailService, SelectedMessageTask);
 		}
 
 		#endregion

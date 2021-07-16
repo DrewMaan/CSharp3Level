@@ -99,7 +99,7 @@
 							<TextBlock Text="Дата отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 							<Calendar/>
 							<TextBlock Text="Время отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-							<ex:TimePicker Margin="3, 3"/>
+							<ex:TimePicker Margin="3, 3" Value="{Binding TimeSend}"/>
 							<StackPanel>
 								<StackPanel.Resources>
 									<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -112,84 +112,36 @@
 										<TextBlock Text="Отправить сейчас"></TextBlock>
 									</StackPanel>
 								</Button>
-								<Button Content="Запланировать"/>
+								<Button Content="Запланировать"
+								        Command="{Binding ScheduleMessageCommand}"/>
 							</StackPanel>
 						</StackPanel>
 					</GroupBox>
 					<GroupBox Header="Задания" Grid.Column="1">
-						<ListBox>
-							<ListBoxItem>
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
-									<TextBlock Text="Отправитель:"/>
-									<TextBlock Grid.Row="0" Grid.Column="1" Text="Какой-то отправитель"/>
-									<TextBlock Grid.Row="1" Grid.Column="0" Text="Поолучатели:"/>
-									<StackPanel Grid.Row="1" Grid.Column="1">
-										<TextBlock Text="Какой-то получатель1"/>
-										<TextBlock Text="Какой-то получатель2"/>
-										<TextBlock Text="Какой-то получатель3"/>
-										<TextBlock Text="Какой-то получатель4"/>
-									</StackPanel>
-									<TextBlock Grid.Row="2" Grid.Column="0" Text="Письмо:"/>
-									<TextBlock Grid.Row="2" Grid.Column="1" Text="Тема письма"/>
-								</Grid>
-							</ListBoxItem>
-							<ListBoxItem>
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
-									<TextBlock Text="Отправитель:"/>
-									<TextBlock Grid.Row="0" Grid.Column="1" Text="Какой-то отправитель"/>
-									<TextBlock Grid.Row="1" Grid.Column="0" Text="Поолучатели:"/>
-									<StackPanel Grid.Row="1" Grid.Column="1">
-										<TextBlock Text="Какой-то получатель1"/>
-										<TextBlock Text="Какой-то получатель2"/>
-										<TextBlock Text="Какой-то получатель3"/>
-										<TextBlock Text="Какой-то получатель4"/>
-									</StackPanel>
-									<TextBlock Grid.Row="2" Grid.Column="0" Text="Письмо:"/>
-									<TextBlock Grid.Row="2" Grid.Column="1" Text="Тема письма"/>
-								</Grid>
-							</ListBoxItem>
-							<ListBoxItem>
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
-									<TextBlock Text="Отправитель:"/>
-									<TextBlock Grid.Row="0" Grid.Column="1" Text="Какой-то отправитель"/>
-									<TextBlock Grid.Row="1" Grid.Column="0" Text="Поолучатели:"/>
-									<StackPanel Grid.Row="1" Grid.Column="1">
-										<TextBlock Text="Какой-то получатель1"/>
-										<TextBlock Text="Какой-то получатель2"/>
-										<TextBlock Text="Какой-то получатель3"/>
-										<TextBlock Text="Какой-то получатель4"/>
-									</StackPanel>
-									<TextBlock Grid.Row="2" Grid.Column="0" Text="Письмо:"/>
-									<TextBlock Grid.Row="2" Grid.Column="1" Text="Тема письма"/>
-								</Grid>
-							</ListBoxItem>
+						<ListBox ItemsSource="{Binding MessageTasks}"
+						         SelectedItem="{Binding SelectedMessageTask}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
+										</Grid.RowDefinitions>
+										<TextBlock Text="Отправитель:"/>
+										<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Consignor}"/>
+											<TextBlock Grid.Row="1" Grid.Column="0" Text="Поолучатели:"/>
+										<ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Recipients}"
+										         DisplayMemberPath="Name"/>
+										<TextBlock Grid.Row="2" Grid.Column="0" Text="Письмо:"/>
+										<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Message.Title}"/>
+									</Grid>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
 						</ListBox>
 					</GroupBox>
 				</Grid>

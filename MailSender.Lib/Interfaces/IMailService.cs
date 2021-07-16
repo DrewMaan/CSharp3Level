@@ -7,6 +7,6 @@ namespace MailSender.Interfaces
 	{
 		void SendEmail(string From, string To, string Title, string Body);
 
-		void SendEmail(IQueryable<Message> mails);
+		void SendEmail(MessageTask messageTask);
 	}
 }
