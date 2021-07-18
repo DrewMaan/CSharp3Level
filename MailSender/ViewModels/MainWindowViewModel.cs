@@ -15,12 +15,14 @@ namespace MailSender.ViewModels
 		private readonly ServersRepository _serversRepository;
 		private readonly IMailService _MailService;
 		private readonly IStatistic _Statistic;
+		private readonly ServersToolBarViewModel _serversToolBarViewModel;
 
-		public MainWindowViewModel(ServersRepository serversRepository, IMailService mailService, IStatistic statistic)
+		public MainWindowViewModel(ServersRepository serversRepository, IMailService mailService, IStatistic statistic, ServersToolBarViewModel serversToolBarViewModel)
 		{
 			_serversRepository = serversRepository;
 			_MailService = mailService;
 			_Statistic = statistic;
+			_serversToolBarViewModel = serversToolBarViewModel;
 		}
 
 		private string _title = "Рассыльщик почты";
@@ -43,22 +45,7 @@ namespace MailSender.ViewModels
 
 		#endregion
 
-		private ObservableCollection<Server> _servers;
-
-		/// <summary>
-		/// Список серверов
-		/// </summary>
-		public ObservableCollection<Server> Servers = new ObservableCollection<Server>();
-
-		private ObservableCollection<Consignor> _consignors;
-		/// <summary>
-		/// Список отправителей
-		/// </summary>
-		public ObservableCollection<Consignor> Consignors
-		{
-			get => _consignors;
-			set => _ = Set(ref _consignors, value);
-		}
+		public Server SelectedServer => _serversToolBarViewModel.SelectedItem;
 
 		private ObservableCollection<Recipient> _recipients;
 		/// <summary>
@@ -86,8 +73,6 @@ namespace MailSender.ViewModels
 
 		private void OnLoadDataCommandExecuted(object p)
 		{
-			Servers = new ObservableCollection<Server>(TestData.Servers);
-			Consignors = new ObservableCollection<Consignor>(TestData.Consignors); 
 			Recipients = new ObservableCollection<Recipient>(TestData.Recipients); 
 			Messages = new ObservableCollection<Message>(TestData.Messages);
 		}
@@ -101,25 +86,6 @@ namespace MailSender.ViewModels
 		{
 			Application.Current.Shutdown();
 		}
-
-		#region Command LoadServersCommand - Загрузка серверов
-
-		/// <summary>Загрузка серверов</summary>
-		private LambdaCommand _LoadServersCommand;
-
-		/// <summary>Загрузка серверов</summary>
-		public ICommand LoadServersCommand => _LoadServersCommand
-			??= new(OnLoadServersCommandExecuted);
-
-		/// <summary>Логика выполнения - Загрузка серверов</summary>
-		private void OnLoadServersCommandExecuted(object p)
-		{
-			Servers.Clear();
-			foreach (var server in _serversRepository.GetAll())
-				Servers.Add(server);
-		}
-
-		#endregion
 
 		#region Command SendMessageCommand - Отправка почты
 
