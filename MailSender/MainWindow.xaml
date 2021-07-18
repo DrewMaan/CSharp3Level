@@ -98,8 +98,19 @@
 						<StackPanel>
 							<TextBlock Text="Дата отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 							<Calendar/>
-							<TextBlock Text="Время отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-							<ex:TimePicker Margin="3, 3" Value="{Binding TimeSend}"/>
+							<Button Margin="3, 0">
+								<StackPanel Orientation="Horizontal">
+									<fa:ImageAwesome Height="15" Icon="Solid_PlusCircle" Foreground="LimeGreen"/>
+									<TextBlock Text="Добавить письмо" Margin="3,0,0,0"/>
+								</StackPanel>
+							</Button>
+							<ListView Height="60" Margin="3, 0, 3, 3">
+								<ListView.ItemTemplate>
+									<DataTemplate>
+										<controls:SchedulerListViewItem/>
+									</DataTemplate>
+								</ListView.ItemTemplate>
+							</ListView>
 							<StackPanel>
 								<StackPanel.Resources>
 									<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -112,8 +123,19 @@
 										<TextBlock Text="Отправить сейчас"></TextBlock>
 									</StackPanel>
 								</Button>
-								<Button Content="Запланировать"
-								        Command="{Binding ScheduleMessageCommand}"/>
+								<Button Command="{Binding ScheduleMessageCommand}">
+									<StackPanel Orientation="Horizontal">
+										<fa:ImageAwesome Height="15" Icon="Solid_Clock" Margin="0,0,3,0">
+											<fa:ImageAwesome.Foreground>
+												<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+													<GradientStop Color="#FF50F303"/>
+													<GradientStop Color="#FF002EFF" Offset="0.765"/>
+												</LinearGradientBrush>
+											</fa:ImageAwesome.Foreground>
+										</fa:ImageAwesome>
+									<TextBlock Text="Отправить запланировано"/>
+									</StackPanel>
+								</Button>
 							</StackPanel>
 						</StackPanel>
 					</GroupBox>
@@ -134,7 +156,7 @@
 										</Grid.RowDefinitions>
 										<TextBlock Text="Отправитель:"/>
 										<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Consignor}"/>
-											<TextBlock Grid.Row="1" Grid.Column="0" Text="Поолучатели:"/>
+										<TextBlock Grid.Row="1" Grid.Column="0" Text="Поолучатели:"/>
 										<ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Recipients}"
 										         DisplayMemberPath="Name"/>
 										<TextBlock Grid.Row="2" Grid.Column="0" Text="Письмо:"/>

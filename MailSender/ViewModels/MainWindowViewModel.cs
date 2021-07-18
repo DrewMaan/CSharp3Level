@@ -211,7 +211,7 @@ namespace MailSender.ViewModels
 				return;
 			}
 
-			_schedulerService.SendEmails(TimeSend.Value, _MailService, SelectedMessageTask);
+			_schedulerService.SendEmails(_MailService, SelectedMessageTask);
 		}
 
 		#endregion
