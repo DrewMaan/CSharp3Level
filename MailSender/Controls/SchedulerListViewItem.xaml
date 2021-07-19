@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:MailSender.Controls"
              xmlns:fa="http://schemas.fontawesome.com/icons/"
+			 Name="SchedulerItem"
              d:DesignHeight="30" d:DesignWidth="200">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,6 +21,6 @@
             <fa:ImageAwesome Icon="Solid_MinusCircle" Foreground="Red"/>
         </Button>
 
-        <TextBox Grid.Column="1"></TextBox>
-    </Grid>
+		<TextBox Grid.Column="1" Text="{Binding ElementName=SchedulerItem, Path=TimeValue}"/>
+	</Grid>
 </UserControl>

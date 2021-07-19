@@ -104,10 +104,11 @@
 									<TextBlock Text="Добавить письмо" Margin="3,0,0,0"/>
 								</StackPanel>
 							</Button>
-							<ListView Height="60" Margin="3, 0, 3, 3">
+							<ListView Height="60" Margin="3, 0, 3, 3"
+									  ItemsSource="{Binding }">
 								<ListView.ItemTemplate>
 									<DataTemplate>
-										<controls:SchedulerListViewItem/>
+										<controls:SchedulerListViewItem TimeValue="{Binding }"/>
 									</DataTemplate>
 								</ListView.ItemTemplate>
 							</ListView>

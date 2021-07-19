@@ -20,9 +20,17 @@ namespace MailSender.Controls
 	/// </summary>
 	public partial class SchedulerListViewItem : UserControl
 	{
+		public static DependencyProperty TimeValueProperty = DependencyProperty.Register("TimeValue", typeof(TimeSpan), typeof(SchedulerListViewItem), new PropertyMetadata(TimeSpan.Zero));
+
 		public SchedulerListViewItem()
 		{
 			InitializeComponent();
+		}
+
+		public TimeSpan TimeValue
+		{
+			get => (TimeSpan)GetValue(TimeValueProperty);
+			set => SetValue(TimeValueProperty, value);
 		}
 	}
 }
