@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MailSender.Models;
 
 namespace MailSender.Controls
 {
 	/// <summary>
 	/// Логика взаимодействия для SchedulerListViewItem.xaml
 	/// </summary>
-	public partial class SchedulerListViewItem : UserControl
+	public partial class SchedulerListViewItem
 	{
-		public static DependencyProperty TimeValueProperty = DependencyProperty.Register("TimeValue", typeof(TimeSpan), typeof(SchedulerListViewItem), new PropertyMetadata(TimeSpan.Zero));
+		public static DependencyProperty TimeValueProperty = DependencyProperty.Register("TimeValue", 
+																					typeof(TimeSpan), 
+																					typeof(SchedulerListViewItem), 
+																							  new PropertyMetadata(TimeSpan.Zero));
+		public static DependencyProperty EditItemCommandProperty = DependencyProperty.Register("EditItemCommand",
+																								typeof(ICommand),
+																								typeof(SchedulerListViewItem));
+		public static DependencyProperty DeleteItemCommandProperty = DependencyProperty.Register("DeleteItemCommand",
+																									typeof(ICommand),
+																									typeof(SchedulerListViewItem));
+		public static DependencyProperty ItemCommandParameterProperty = DependencyProperty.Register("ItemCommandParameter", 
+																											typeof(SchedulerItem), 
+																											  typeof(SchedulerListViewItem));
 
 		public SchedulerListViewItem()
 		{
@@ -31,6 +33,24 @@ namespace MailSender.Controls
 		{
 			get => (TimeSpan)GetValue(TimeValueProperty);
 			set => SetValue(TimeValueProperty, value);
+		}
+
+		public ICommand EditItemCommand
+		{
+			get => (ICommand) GetValue(EditItemCommandProperty);
+			set => SetValue(EditItemCommandProperty, value);
+		}
+
+		public ICommand DeleteItemCommand
+		{
+			get => (ICommand)GetValue(DeleteItemCommandProperty);
+			set => SetValue(DeleteItemCommandProperty, value);
+		}
+
+		public SchedulerItem ItemCommandParameter
+		{
+			get => (SchedulerItem)GetValue(ItemCommandParameterProperty);
+			set => SetValue(ItemCommandParameterProperty, value);
 		}
 	}
 }

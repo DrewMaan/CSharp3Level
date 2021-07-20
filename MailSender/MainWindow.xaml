@@ -98,17 +98,28 @@
 						<StackPanel>
 							<TextBlock Text="Дата отправки" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 							<Calendar/>
-							<Button Margin="3, 0">
+							<Button Margin="3, 0"
+							        Command="{Binding AddSchedulerItemCommand}">
 								<StackPanel Orientation="Horizontal">
 									<fa:ImageAwesome Height="15" Icon="Solid_PlusCircle" Foreground="LimeGreen"/>
 									<TextBlock Text="Добавить письмо" Margin="3,0,0,0"/>
 								</StackPanel>
 							</Button>
-							<ListView Height="60" Margin="3, 0, 3, 3"
-									  ItemsSource="{Binding }">
+							<ListView x:Name="ListViewScheduler"
+								Height="60" Margin="3, 0, 3, 3"
+								ItemsSource="{Binding SchedulerItems}"
+								SelectedItem="{Binding SelectedSchedulerItem}">
+								<ListView.ItemContainerStyle>
+									<Style TargetType="ListViewItem">
+										<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+									</Style>
+								</ListView.ItemContainerStyle>
 								<ListView.ItemTemplate>
 									<DataTemplate>
-										<controls:SchedulerListViewItem TimeValue="{Binding }"/>
+										<controls:SchedulerListViewItem TimeValue="{Binding TimeSend}" Width="150"
+										                                EditItemCommand="{Binding ElementName=ListViewScheduler, Path=DataContext.EditSchedulerItemCommand}"
+										                                DeleteItemCommand="{Binding ElementName=ListViewScheduler, Path=DataContext.DeleteSchedulerItemCommand}"
+										                                ItemCommandParameter="{Binding ElementName=ListViewScheduler, Path=DataContext.SelectedSchedulerItem}"/>
 									</DataTemplate>
 								</ListView.ItemTemplate>
 							</ListView>

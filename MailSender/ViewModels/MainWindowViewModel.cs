@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -17,6 +18,8 @@ namespace MailSender.ViewModels
 		private readonly IRepository<Recipient> _recipientsRepository;
 		private readonly IRepository<Message> _messagesRepository;
 		private readonly IRepository<MessageTask> _messageTaskRepository;
+		private readonly IRepository<SchedulerItem> _schedulerItemsRepository;
+		private readonly ISchedulerItemUserDialog _schedulerItemUserDialog;
 		private readonly ISchedulerService _schedulerService;
 		private readonly IMailService _MailService;
 		private readonly IStatistic _Statistic;
@@ -26,6 +29,8 @@ namespace MailSender.ViewModels
 			IRepository<Recipient> recipientsRepository,
 			IRepository<Message> messagesRepository,
 			IRepository<MessageTask> messageTaskRepository,
+			IRepository<SchedulerItem> schedulerItemsRepository,
+			ISchedulerItemUserDialog schedulerItemUserDialog,
 			ISchedulerService schedulerService,
 			IMailService mailService, 
 			IStatistic statistic)
@@ -35,6 +40,8 @@ namespace MailSender.ViewModels
 			_recipientsRepository = recipientsRepository;
 			_messagesRepository = messagesRepository;
 			_messageTaskRepository = messageTaskRepository;
+			_schedulerItemsRepository = schedulerItemsRepository;
+			_schedulerItemUserDialog = schedulerItemUserDialog;
 			_schedulerService = schedulerService;
 			_MailService = mailService;
 			_Statistic = statistic;
@@ -125,12 +132,20 @@ namespace MailSender.ViewModels
 			set => _ = Set(ref _selectedMessageTask, value);
 		}
 
-		private DateTime? _timeSend;
+		private ObservableCollection<SchedulerItem> _schedulerItems;
 
-		public DateTime? TimeSend
+		public ObservableCollection<SchedulerItem> SchedulerItems
 		{
-			get => _timeSend;
-			set => _ = Set(ref _timeSend, value);
+			get => _schedulerItems;
+			set => _ = Set(ref _schedulerItems, value);
+		}
+
+		private SchedulerItem _selectedSchedulerItem;
+
+		public SchedulerItem SelectedSchedulerItem
+		{
+			get => _selectedSchedulerItem;
+			set => _ = Set(ref _selectedSchedulerItem, value);
 		}
 
 		private ICommand _LoadDataCommand;
@@ -144,6 +159,7 @@ namespace MailSender.ViewModels
 			Recipients = new ObservableCollection<Recipient>(TestData.Recipients); 
 			Messages = new ObservableCollection<Message>(TestData.Messages);
 			MessageTasks = new ObservableCollection<MessageTask>(_messageTaskRepository.GetAll());
+			SchedulerItems = new ObservableCollection<SchedulerItem>(_schedulerItemsRepository.GetAll());
 		}
 
 		private ICommand _ExitCommand;
@@ -195,23 +211,84 @@ namespace MailSender.ViewModels
 		#region Command ScheduleMessageCommand - Отправка почты
 
 		/// <summary>Отправка почты</summary>
-		private LambdaCommand _scheduleMessageCommand;
+		//private LambdaCommand _scheduleMessageCommand;
 
-		/// <summary>Отправка почты</summary>
-		public ICommand ScheduleMessageCommand => _scheduleMessageCommand
-			??= new(OnScheduleMessageCommandExecuted);
+		///// <summary>Отправка почты</summary>
+		//public ICommand ScheduleMessageCommand => _scheduleMessageCommand
+		//	??= new(OnScheduleMessageCommandExecuted);
 
-		/// <summary>Логика выполнения - Отправка почты</summary>
-		private void OnScheduleMessageCommandExecuted(object p)
+		///// <summary>Логика выполнения - Отправка почты</summary>
+		//private void OnScheduleMessageCommandExecuted(object p)
+		//{
+		//	if (TimeSend is null)
+		//	{
+		//		MessageBox.Show("Время отправки писем не задано!", "Ошибка планировщика", MessageBoxButton.OK,
+		//			MessageBoxImage.Error);
+		//		return;
+		//	}
+
+		//	_schedulerService.SendEmails(_MailService, SelectedMessageTask);
+		//}
+
+		#endregion
+
+		#region Command AddSchedulerItemCommand - Загрузка серверов
+
+		/// <summary>Загрузка серверов</summary>
+		private LambdaCommand _addSchedulerItemCommand;
+
+		/// <summary>Загрузка серверов</summary>
+		public ICommand AddSchedulerItemCommand => _addSchedulerItemCommand
+			??= new(OnAddSchedulerItemCommandExecuted);
+
+		/// <summary>Логика выполнения - Загрузка серверов</summary>
+		private void OnAddSchedulerItemCommandExecuted(object p)
 		{
-			if (TimeSend is null)
+			if (_schedulerItemUserDialog.AddSchedulerItem(out var schedulerItem))
 			{
-				MessageBox.Show("Время отправки писем не задано!", "Ошибка планировщика", MessageBoxButton.OK,
-					MessageBoxImage.Error);
-				return;
+				_schedulerItemsRepository.Add(schedulerItem);
+				SchedulerItems.Add(schedulerItem);
 			}
+		}
 
-			_schedulerService.SendEmails(_MailService, SelectedMessageTask);
+		#endregion
+
+		#region Command EditSchedulerItemCommand - Загрузка серверов
+
+		/// <summary>Загрузка серверов</summary>
+		private LambdaCommand _editSchedulerItemCommand;
+
+		/// <summary>Загрузка серверов</summary>
+		public ICommand EditSchedulerItemCommand => _editSchedulerItemCommand
+			??= new(OnEditSchedulerItemCommandExecuted);
+
+		/// <summary>Логика выполнения - Загрузка серверов</summary>
+		private void OnEditSchedulerItemCommandExecuted(object p)
+		{
+			if(p is not SchedulerItem schedulerItem) return;
+
+			if (_schedulerItemUserDialog.EditSchedulerItem(schedulerItem))
+			{
+				_schedulerItemsRepository.Update(schedulerItem);
+			}
+		}
+
+		#endregion
+
+		#region Command DeleteSchedulerItemCommand - Загрузка серверов
+
+		/// <summary>Загрузка серверов</summary>
+		private LambdaCommand _deleteSchedulerItemCommand;
+
+		/// <summary>Загрузка серверов</summary>
+		public ICommand DeleteSchedulerItemCommand => _deleteSchedulerItemCommand
+			??= new(OnDeleteSchedulerItemCommandExecuted);
+
+		/// <summary>Логика выполнения - Загрузка серверов</summary>
+		private void OnDeleteSchedulerItemCommandExecuted(object p)
+		{
+			if (p is not SchedulerItem schedulerItem) return;
+			SchedulerItems.Remove(schedulerItem);
 		}
 
 		#endregion

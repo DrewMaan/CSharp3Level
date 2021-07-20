@@ -6,7 +6,7 @@
              xmlns:l="clr-namespace:MailSender.Controls"
              xmlns:fa="http://schemas.fontawesome.com/icons/"
 			 Name="SchedulerItem"
-             d:DesignHeight="30" d:DesignWidth="200">
+             d:DesignHeight="30" d:DesignWidth="200" Width="Auto">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -14,11 +14,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Button>
-			<fa:ImageAwesome Icon="Solid_PencilAlt" Foreground="Orange"/>
+        <Button Width="Auto" Height="Auto"
+	        Command="{Binding ElementName=SchedulerItem, Path=EditItemCommand}"
+	        CommandParameter="{Binding ElementName=SchedulerItem, Path=ItemCommandParameter}">
+			<fa:ImageAwesome Icon="Solid_PencilAlt" Height="15" Foreground="Orange"/>
 		</Button>
-        <Button Grid.Column="2">
-            <fa:ImageAwesome Icon="Solid_MinusCircle" Foreground="Red"/>
+		<Button Grid.Column="2" Width="Auto" Height="Auto"
+                Command="{Binding ElementName=SchedulerItem, Path=DeleteItemCommand}"
+                CommandParameter="{Binding ElementName=SchedulerItem, Path=ItemCommandParameter}">
+			<fa:ImageAwesome Icon="Solid_MinusCircle" Height="15" Foreground="Red"/>
         </Button>
 
 		<TextBox Grid.Column="1" Text="{Binding ElementName=SchedulerItem, Path=TimeValue}"/>

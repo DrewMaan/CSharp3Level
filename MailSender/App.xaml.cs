@@ -42,12 +42,14 @@ namespace MailSender
 
 			services.AddScoped<IServerUserDialog, WindowServerUserDialogServer>();
 			services.AddScoped<IConsignorUserDialog, WindowConsignorUserDialog>();
+			services.AddScoped<ISchedulerItemUserDialog, WindowSchedulerItemUserDialogServer>();
 
 			services.AddSingleton<IRepository<Server>, InMemoryServersRepository>();
 			services.AddSingleton<IRepository<Consignor>, InMemoryConsignorsRepository>();
 			services.AddSingleton<IRepository<Recipient>, InMemoryRecipientsRepository>();
 			services.AddSingleton<IRepository<Message>, InMemoryMessagesRepository>();
 			services.AddSingleton<IRepository<MessageTask>, InMemoryMessageTasksRepository>();
+			services.AddSingleton<IRepository<SchedulerItem>, InMemorySchedulerItemsRepository>();
 		}
 
 		protected override void OnStartup(StartupEventArgs e)

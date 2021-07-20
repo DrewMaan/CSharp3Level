@@ -9,7 +9,6 @@
         d:DataContext="{d:DesignInstance vm:ServersEditDialogViewModel, IsDesignTimeCreatable=True}"
         Title="ServerEditDialog" Height="330" Width="300">
     <DockPanel>
-
 	    <UniformGrid DockPanel.Dock="Bottom"
 	                 Rows="1" HorizontalAlignment="Right"
 	                 Margin="0,10,10,10">
