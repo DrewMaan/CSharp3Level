@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MailSender.Data;
@@ -210,25 +211,25 @@ namespace MailSender.ViewModels
 
 		#region Command ScheduleMessageCommand - Отправка почты
 
+		///<summary>Отправка почты</summary>
+		private LambdaCommand _scheduleMessageCommand;
+
 		/// <summary>Отправка почты</summary>
-		//private LambdaCommand _scheduleMessageCommand;
+		public ICommand ScheduleMessageCommand => _scheduleMessageCommand
+			??= new(OnScheduleMessageCommandExecuted);
 
-		///// <summary>Отправка почты</summary>
-		//public ICommand ScheduleMessageCommand => _scheduleMessageCommand
-		//	??= new(OnScheduleMessageCommandExecuted);
+		/// <summary>Логика выполнения - Отправка почты</summary>
+		private void OnScheduleMessageCommandExecuted(object p)
+		{
+			if (SchedulerItems is null)
+			{
+				MessageBox.Show("Список планрировщика пуст!", "Ошибка планировщика", MessageBoxButton.OK,
+					MessageBoxImage.Error);
+				return;
+			}
 
-		///// <summary>Логика выполнения - Отправка почты</summary>
-		//private void OnScheduleMessageCommandExecuted(object p)
-		//{
-		//	if (TimeSend is null)
-		//	{
-		//		MessageBox.Show("Время отправки писем не задано!", "Ошибка планировщика", MessageBoxButton.OK,
-		//			MessageBoxImage.Error);
-		//		return;
-		//	}
-
-		//	_schedulerService.SendEmails(_MailService, SelectedMessageTask);
-		//}
+			_schedulerService.SendEmails(_MailService, SchedulerItems.ToDictionary(x => x.TimeSend, v => v.MessageBody), SelectedMessageTask);
+		}
 
 		#endregion
 

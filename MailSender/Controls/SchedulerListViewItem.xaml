@@ -25,6 +25,6 @@
 			<fa:ImageAwesome Icon="Solid_MinusCircle" Height="15" Foreground="Red"/>
         </Button>
 
-		<TextBox Grid.Column="1" Text="{Binding ElementName=SchedulerItem, Path=TimeValue}"/>
+		<TextBox Grid.Column="1" Text="{Binding ElementName=SchedulerItem, Path=TimeValue, StringFormat={}{0:hh:mm:ss}}"/>
 	</Grid>
 </UserControl>

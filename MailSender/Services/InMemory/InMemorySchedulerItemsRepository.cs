@@ -11,7 +11,10 @@ namespace MailSender.Services.InMemory
 			.Select(i => new SchedulerItem
 			{
 				Id = i,
-				TimeSend = new TimeSpan(i, 0, 0),
+				TimeSend = new DateTime(DateTime.Today.Year,
+										DateTime.Today.Month,
+										DateTime.Today.Day,
+										i, 0, 0),
 				MessageBody = $"Текст сообщения {i}"
 			});
 

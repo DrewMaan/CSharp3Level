@@ -11,9 +11,9 @@ namespace MailSender.Controls
 	public partial class SchedulerListViewItem
 	{
 		public static DependencyProperty TimeValueProperty = DependencyProperty.Register("TimeValue", 
-																					typeof(TimeSpan), 
+																					typeof(DateTime), 
 																					typeof(SchedulerListViewItem), 
-																							  new PropertyMetadata(TimeSpan.Zero));
+																							  new PropertyMetadata(DateTime.Now));
 		public static DependencyProperty EditItemCommandProperty = DependencyProperty.Register("EditItemCommand",
 																								typeof(ICommand),
 																								typeof(SchedulerListViewItem));
@@ -29,9 +29,9 @@ namespace MailSender.Controls
 			InitializeComponent();
 		}
 
-		public TimeSpan TimeValue
+		public DateTime TimeValue
 		{
-			get => (TimeSpan)GetValue(TimeValueProperty);
+			get => (DateTime)GetValue(TimeValueProperty);
 			set => SetValue(TimeValueProperty, value);
 		}
 
