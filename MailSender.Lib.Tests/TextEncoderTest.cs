@@ -9,6 +9,18 @@ namespace MailSender.Lib.Tests
 	[TestClass]
 	public class TextEncoderTest
 	{
+		[TestInitialize]
+		public void Initialize()
+		{
+
+		}
+
+		[TestCleanup]
+		public void CleanUp()
+		{
+
+		}
+
 		[TestMethod]
 		public void Encode_ABC_return_BCD_with_key_default()
 		{
