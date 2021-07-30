@@ -14,14 +14,17 @@ namespace MailSender.TestConsole
 			long N;
 			if (long.TryParse(Console.ReadLine(), out N))
 			{
-				Console.WriteLine("Начало вычмсления факториала из {0}", N);
-				Console.WriteLine("Результат: {0}", Factorial(N, 20));
+				//Console.WriteLine("Начало вычмсления факториала из {0}", N);
+				//Console.WriteLine("Результат: {0}", FactorialThreads(N, 20));
+
+				Console.WriteLine("Начало вычмсления суммы чисел от 1 до {0}", N);
+				Console.WriteLine("Результат: {0}", SumThreads(N, 20));
 			}
 
 			Console.ReadKey();
 		}
 
-		public static BigInteger Factorial(long N, int numberIntervals)
+		public static BigInteger FactorialThreads(long N, int numberIntervals)
 		{
 			if (N == 1 || N == 0) return 1;
 			if (N < 0)
@@ -84,6 +87,75 @@ namespace MailSender.TestConsole
 				for (int i = 1; i <= intervals.Count; i++)
 				{
 					result *= tasks[i].Result;
+				}
+			}
+
+			return result;
+		}
+
+		public static BigInteger SumThreads(long N, int numberIntervals)
+		{
+			if (N == 1 || N == 0) return 1;
+			if (N < 0)
+			{
+				Console.WriteLine("Невозможно вычислить сумму из отрицательного числа!");
+				throw new ArgumentException("Невозможно вычислить сумму из отрицательного числа!", nameof(N));
+			}
+
+			BigInteger result = 0;
+			SumTask[] tasks;
+			long step = N / numberIntervals;
+			long start = 0;
+
+			if (start < step)
+			{
+				tasks = new SumTask[numberIntervals + 1];
+				for (int i = 1; i <= numberIntervals; i++)
+				{
+					if (i == numberIntervals)
+						tasks[i] = new SumTask(new Tuple<long, long>(start + 1, N));
+					else
+					{
+						tasks[i] = new SumTask(new Tuple<long, long>(start + 1, step * i));
+					}
+					start = step * i;
+				}
+
+				for (int i = 1; i <= numberIntervals; i++)
+				{
+					tasks[i].Start();
+				}
+
+				for (int i = 1; i <= numberIntervals; i++)
+				{
+					tasks[i].Join();
+				}
+
+				for (int i = 1; i <= numberIntervals; i++)
+				{
+					result += tasks[i].Result;
+				}
+			}
+			else
+			{
+				var intervals = CreateIntervals(new Tuple<long, long>(1, N));
+				tasks = new SumTask[intervals.Count + 1];
+				for (int i = 1; i <= intervals.Count; i++)
+					tasks[i] = new SumTask(intervals[i - 1]);
+
+				for (int i = 1; i <= intervals.Count; i++)
+				{
+					tasks[i].Start();
+				}
+
+				for (int i = 1; i <= intervals.Count; i++)
+				{
+					tasks[i].Join();
+				}
+
+				for (int i = 1; i <= intervals.Count; i++)
+				{
+					result += tasks[i].Result;
 				}
 			}
 

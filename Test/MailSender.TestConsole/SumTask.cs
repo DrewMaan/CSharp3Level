@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace MailSender.TestConsole
 {
-	class FactorialTask
+	class SumTask
 	{
 		private readonly Thread _thread;
 		private readonly Tuple<long, long> _interval;
@@ -12,22 +12,22 @@ namespace MailSender.TestConsole
 
 		public BigInteger Result { get; private set; }
 
-		public FactorialTask(Tuple<long,long> interval)
+		public SumTask(Tuple<long, long> interval)
 		{
 			_interval = interval;
-			_thread = new Thread(CalculateFactorial);
+			_thread = new Thread(CalculateSum);
 		}
 
 		public void Start() => _thread.Start();
 
 		public void Join() => _thread.Join();
 
-		private void CalculateFactorial()
+		private void CalculateSum()
 		{
-			BigInteger result = 1;
+			BigInteger result = 0;
 			for (long i = _interval.Item1; i <= _interval.Item2; i++)
 			{
-				result *= i;
+				result += i;
 			}
 
 			Result = result;
