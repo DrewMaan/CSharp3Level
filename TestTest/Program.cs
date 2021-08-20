@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,20 @@ namespace TestTest
 	{
 		static void Main(string[] args)
 		{
+			TestStreamReader.CreateTestCsvFile();
+			using (var sr = new StreamReader(@"C:\Learning\CSharp_Level3\CSharp3Level\test.csv"))
+			{
+				List<char[]> listBuf = new List<char[]>();
+				var line = sr.ReadLine();
+				char[] charBuf = new char[line.Length * 4];
+				int index = 0;
+				while (!sr.EndOfStream)
+				{
+					Array.Clear(charBuf, 0, charBuf.Length);
+					index += sr.ReadBlock(charBuf, 0, charBuf.Length);
+					listBuf.Add(charBuf);
+				}
+			}
 		}
 
 		public static List<Tuple<long, long>> CreateIntervals(Tuple<long, long> interval)
