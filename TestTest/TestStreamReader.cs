@@ -4,14 +4,13 @@ namespace TestTest
 {
 	public class TestStreamReader
 	{
-		public static void CreateTestCsvFile()
+		public static void CreateTestCsvFile(string filePath)
 		{
-			string filePath = Directory.GetCurrentDirectory();
 			if (!File.Exists(filePath))
 			{
 				using (var sr = File.CreateText(filePath))
 				{
-					for (int i = 0; i < 500; i++)
+					for (int i = 0; i < 1_000_000; i++)
 					{
 						sr.WriteLine($"Index{i} Name{i} Description{i}");
 					}
@@ -20,7 +19,7 @@ namespace TestTest
 			else
 			{
 				File.Delete(filePath);
-				CreateTestCsvFile();
+				CreateTestCsvFile(filePath);
 			}
 		}
 	}

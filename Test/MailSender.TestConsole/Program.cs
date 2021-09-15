@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
 
 namespace MailSender.TestConsole
@@ -19,6 +20,48 @@ namespace MailSender.TestConsole
 			//}
 
 			List<char[]> listBufThreads = new List<char[]>();
+			int bufSize = 512;
+			string filePath = Directory.GetCurrentDirectory().Replace("\\Test\\MailSender.TestConsole\\bin\\Debug\\net5.0", "") + "\\Test.csv";
+			string filePathTxt = Directory.GetCurrentDirectory().Replace("\\Test\\MailSender.TestConsole\\bin\\Debug\\net5.0", "") + "\\Test.txt";
+			FileInfo file = new FileInfo(filePath);
+			var parts = (file.Length / bufSize) / 100;
+			ReadCsvTask[] tasks = new ReadCsvTask[parts];
+
+			if(File.Exists(filePathTxt))
+			{
+				File.Delete(filePathTxt);
+			}
+
+			using (StreamWriter sw = File.CreateText(filePathTxt))
+			{
+				using (StreamReader sr = new StreamReader(filePath))
+				{
+					while (!sr.EndOfStream)
+					{
+						for (int i = 0; i < tasks.Length; i++)
+						{
+							tasks[i] = new ReadCsvTask(sr, bufSize);
+						}
+
+						for (int i = 0; i < tasks.Length; i++)
+						{
+							tasks[i].Start();
+							tasks[i].Join();
+						}
+
+						WriteTxtTask[] writeTxtTasks = new WriteTxtTask[tasks.Length];
+						for (int i = 0; i < tasks.Length; i++)
+						{
+							writeTxtTasks[i] = new WriteTxtTask(sw, tasks[i].Result);
+						}
+						for (int i = 0; i < tasks.Length; i++)
+						{
+							writeTxtTasks[i].Start();
+							writeTxtTasks[i].Join();
+						}
+					}
+				}
+			}
 
 
 			Console.ReadKey();
@@ -194,12 +237,12 @@ namespace MailSender.TestConsole
 			return intervals;
 		}
 
-		static List<char[]> ReadCsvFileThreads()
-		{
-			string filePath = @"E:\Learning\CSharp3Level";
-			ReadCsvTask[] readCsvTasks;
-			int bufSize = 128;
+		//static List<char[]> ReadCsvFileThreads()
+		//{
+		//	string filePath = @"E:\Learning\CSharp3Level";
+		//	ReadCsvTask[] readCsvTasks;
+		//	int bufSize = 128;
 
-		}
+		//}
 	}
 }

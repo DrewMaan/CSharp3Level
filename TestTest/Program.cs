@@ -11,16 +11,15 @@ namespace TestTest
 	{
 		static void Main(string[] args)
 		{
-			TestStreamReader.CreateTestCsvFile();
-			using (StreamReader sr = new StreamReader(@"C:\Learning\CSharp_Level3\CSharp3Level\test.csv"))
+			string filePath = Directory.GetCurrentDirectory().Replace("\\TestTest\\bin\\Debug", "") + "\\Test.csv";
+			TestStreamReader.CreateTestCsvFile(filePath);
+			using (StreamReader sr = new StreamReader(filePath))
 			{
 				List<char[]> listBuf = new List<char[]>();
-				var line = sr.ReadLine();
-				char[] charBuf = new char[line.Length * 4];
 				int index = 0;
 				while (!sr.EndOfStream)
 				{
-					Array.Clear(charBuf, 0, charBuf.Length);
+					char[] charBuf = new char[512];
 					index += sr.ReadBlock(charBuf, 0, charBuf.Length);
 					listBuf.Add(charBuf);
 				}
