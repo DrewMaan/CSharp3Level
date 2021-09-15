@@ -8,15 +8,18 @@ namespace MailSender.TestConsole
 	{
 		static void Main(string[] args)
 		{
-			long N;
-			if (long.TryParse(Console.ReadLine(), out N))
-			{
-				//Console.WriteLine("Начало вычмсления факториала из {0}", N);
-				//Console.WriteLine("Результат: {0}", FactorialThreads(N, 20));
+			//long N;
+			//if (long.TryParse(Console.ReadLine(), out N))
+			//{
+			//	//Console.WriteLine("Начало вычмсления факториала из {0}", N);
+			//	//Console.WriteLine("Результат: {0}", FactorialThreads(N, 20));
 
-				Console.WriteLine("Начало вычмсления суммы чисел от 1 до {0}", N);
-				Console.WriteLine("Результат: {0}", SumThreads(N, 20));
-			}
+			//	Console.WriteLine("Начало вычмсления суммы чисел от 1 до {0}", N);
+			//	Console.WriteLine("Результат: {0}", SumThreads(N, 20));
+			//}
+
+			List<char[]> listBufThreads = new List<char[]>();
+
 
 			Console.ReadKey();
 		}
@@ -189,6 +192,14 @@ namespace MailSender.TestConsole
 			}
 
 			return intervals;
+		}
+
+		static List<char[]> ReadCsvFileThreads()
+		{
+			string filePath = @"E:\Learning\CSharp3Level";
+			ReadCsvTask[] readCsvTasks;
+			int bufSize = 128;
+
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace TestTest
 		static void Main(string[] args)
 		{
 			TestStreamReader.CreateTestCsvFile();
-			using (var sr = new StreamReader(@"C:\Learning\CSharp_Level3\CSharp3Level\test.csv"))
+			using (StreamReader sr = new StreamReader(@"C:\Learning\CSharp_Level3\CSharp3Level\test.csv"))
 			{
 				List<char[]> listBuf = new List<char[]>();
 				var line = sr.ReadLine();

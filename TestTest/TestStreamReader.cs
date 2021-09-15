@@ -6,7 +6,7 @@ namespace TestTest
 	{
 		public static void CreateTestCsvFile()
 		{
-			string filePath = @"C:\Learning\CSharp_Level3\CSharp3Level\test.csv";
+			string filePath = Directory.GetCurrentDirectory();
 			if (!File.Exists(filePath))
 			{
 				using (var sr = File.CreateText(filePath))
