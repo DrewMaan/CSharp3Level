@@ -37,7 +37,10 @@ namespace MailSender
 			services.AddSingleton<ConsignorsToolBarViewModel>();
 
 			services.AddSingleton<IStatistic, InMemoryStatisticService>();
+
 			services.AddSingleton<IMailService, DebugMailService>();
+			services.AddSingleton<IMailService, SmtpMailService>();
+
 			services.AddSingleton<ISchedulerService, SchedulerService>();
 
 			services.AddScoped<IServerUserDialog, WindowServerUserDialogServer>();

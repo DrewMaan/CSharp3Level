@@ -5,8 +5,11 @@ namespace MailSender.Interfaces
 {
 	public interface IMailService
 	{
-		void SendEmail(string From, string To, string Title, string Body);
+		IMailSender GetSender(string serverAddress, int port, bool useSSL, string login, string password);
+	}
 
-		void SendEmail(MessageTask messageTask);
+	public interface IMailSender
+	{
+		void Send(string senderAddress, string recipientAddress, string subject, string body);
 	}
 }

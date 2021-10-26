@@ -37,10 +37,10 @@ namespace MailSender.Services
 			{
 				if (item.Key.ToShortTimeString() == DateTime.Now.ToShortTimeString())
 				{
-					foreach (var recipient in _messageTask.Recipients)
-					{
-						mailService.SendEmail(_messageTask.Consignor.Address, recipient.Address, _messageTask.Message.Title, item.Value);
-					}
+					//foreach (var recipient in _messageTask.Recipients)
+					//{
+					//	mailService.SendEmail(_messageTask.Consignor.Address, recipient.Address, _messageTask.Message.Title, item.Value);
+					//}
 
 					dispatcherTimer.Stop();
 					MessageBox.Show("Письма отправлены");

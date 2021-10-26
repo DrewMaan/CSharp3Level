@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using DevExpress.Utils.Serializing;
 using MailSender.Models.Base;
 
 namespace MailSender.Models

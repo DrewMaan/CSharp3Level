@@ -6,7 +6,7 @@ using MailSender.ViewModels.Base;
 
 namespace MailSender.ViewModels
 {
-	public class ServersToolBarViewModel : MyToolBarViewModelBase<Server>
+	public class ServersToolBarViewModel
 	{
 		private IRepository<Server> _serversRepository;
 		private IServerUserDialog _serverDialog;
@@ -15,16 +15,16 @@ namespace MailSender.ViewModels
 		{
 			_serversRepository = serversRepository;
 			_serverDialog = serverDialog;
-			_title = "Список серверов";
+			// _title = "Список серверов";
 
-			Initialize();
+			//Initialize();
 		}
 
-		private void Initialize()
-		{
-			if(_serversRepository is null) return;
-			foreach (var server in _serversRepository.GetAll()) Items.Add(server);
-		}
+		//private void Initialize()
+		//{
+		//	if(_serversRepository is null) return;
+		//	foreach (var server in _serversRepository.GetAll()) Items.Add(server);
+		//}
 
 		#region Commands
 		private ICommand _addCommand;
@@ -36,7 +36,7 @@ namespace MailSender.ViewModels
 			if (_serverDialog.AddServer(out var server))
 			{
 				_serversRepository.Add(server);
-				Items.Add(server);
+				// Items.Add(server);
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace MailSender.ViewModels
 			if (obj is not Server server) return;
 			{
 				_serversRepository.Remove(server.Id);
-				Items.Remove(server);
+				// Items.Remove(server);
 			}
 		}
 		#endregion

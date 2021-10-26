@@ -43,7 +43,10 @@
 					</Grid.RowDefinitions>
 					<ToolBarTray>
 						<ToolBar>
-							<controls:ServersToolBar/>
+							<controls:ServersToolBar ServersTitle="{Binding ServersTitle}" Servers="{Binding Servers}" SelectedServer="{Binding SelectedServer}"
+													 AddCommand="{Binding AddServerCommand}"
+													 EditCommand="{Binding EditServerCommand}"
+													 RemoveCommand="{Binding RemoveServerCommand}"/>
 						</ToolBar>
 						<ToolBar>
 							<Label Content="Планировщик" Margin="0, 0, 10, 0"/>
