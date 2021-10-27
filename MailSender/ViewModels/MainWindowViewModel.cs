@@ -26,6 +26,7 @@ namespace MailSender.ViewModels
 		private readonly IStatistic _Statistic;
 
 		private readonly IServerUserDialog _serverUserDialog;
+		private readonly IConsignorUserDialog _consignorUserDialog;
 
 		public MainWindowViewModel(IRepository<Server> serversRepository,
 			IRepository<Consignor> consignorsRepository,
@@ -37,7 +38,8 @@ namespace MailSender.ViewModels
 			ISchedulerService schedulerService,
 			IMailService mailService, 
 			IStatistic statistic,
-			IServerUserDialog serverUserDialog)
+			IServerUserDialog serverUserDialog,
+			IConsignorUserDialog consignorUserDialog)
 		{
 			_serversRepository = serversRepository;
 			_consignorsRepository = consignorsRepository;
@@ -52,6 +54,7 @@ namespace MailSender.ViewModels
 
 
 			_serverUserDialog = serverUserDialog;
+			_consignorUserDialog = consignorUserDialog;
 		}
 
 		private string _title = "Рассыльщик почты";
@@ -95,9 +98,9 @@ namespace MailSender.ViewModels
 			set => Set(ref _servers, value);
 		}
 
-		private Recipient _selectedServer;
+		private Server _selectedServer;
 
-		public Recipient SelectedServer
+		public Server SelectedServer
 		{
 			get => _selectedServer;
 			set => _ = Set(ref _selectedServer, value);
@@ -111,6 +114,16 @@ namespace MailSender.ViewModels
 		{
 			get => _consignors;
 			set => _ = Set(ref _consignors, value);
+		}
+
+		private Consignor _selectedConsignor;
+		/// <summary>
+		/// Выбранный отправитель
+		/// </summary>
+		public Consignor SelectedConsignor
+		{
+			get => _selectedConsignor;
+			set => Set(ref _selectedConsignor, value);
 		}
 
 		private ObservableCollection<Recipient> _recipients;
@@ -139,6 +152,16 @@ namespace MailSender.ViewModels
 		{
 			get => _messages;
 			set => _ = Set(ref _messages, value);
+		}
+
+		private Message _selectedMessage;
+		/// <summary>
+		/// Выбранное письмо
+		/// </summary>
+		public Message SelectedMessage
+		{
+			get => _selectedMessage;
+			set => Set(ref _selectedMessage, value);
 		}
 
 		private ObservableCollection<MessageTask> _messageTasks;
@@ -184,9 +207,13 @@ namespace MailSender.ViewModels
 		private void OnLoadDataCommandExecuted(object p)
 		{
 			Servers = new ObservableCollection<Server>(TestData.Servers);
-			Consignors = new ObservableCollection<Consignor>(TestData.Consignors); 
-			Recipients = new ObservableCollection<Recipient>(TestData.Recipients); 
+			SelectedServer = Servers.FirstOrDefault();
+			Consignors = new ObservableCollection<Consignor>(TestData.Consignors);
+			SelectedConsignor = Consignors.FirstOrDefault();
+			Recipients = new ObservableCollection<Recipient>(TestData.Recipients);
+			SelectedRecipient = Recipients.FirstOrDefault();
 			Messages = new ObservableCollection<Message>(TestData.Messages);
+			SelectedMessage = Messages.FirstOrDefault();
 			MessageTasks = new ObservableCollection<MessageTask>(_messageTaskRepository.GetAll());
 			SchedulerItems = new ObservableCollection<SchedulerItem>(_schedulerItemsRepository.GetAll());
 		}
@@ -232,8 +259,8 @@ namespace MailSender.ViewModels
 		/// <summary>Логика выполнения - Отправка почты</summary>
 		private void OnSendMessageCommandExecuted(object p)
 		{
-			var sender = _MailService.GetSender("server@mail.com", 25, true, "login", "password");
-			sender.Send("Отправитель", "Получатель", "Тема", "Тело письма");
+			var sender = _MailService.GetSender(SelectedServer.Address, SelectedServer.Port, SelectedServer.UseSSL, SelectedServer.Login, SelectedServer.Password);
+			sender.Send(SelectedConsignor.Address, SelectedRecipient.Address, SelectedMessage.Title, SelectedMessage.Text);
 		}
 
 		#endregion
@@ -363,6 +390,52 @@ namespace MailSender.ViewModels
 			{
 				_serversRepository.Remove(server.Id);
 				Servers.Remove(server);
+			}
+		}
+		#endregion
+		#endregion
+
+		#region Consignors Commands
+
+		#region Command AddConsignorCommand - Добавить отправителя
+		private ICommand _addConsignorCommand;
+
+		public ICommand AddConsignorCommand => _addConsignorCommand ??= new LambdaCommand(OnAddConsignorCommandExecute);
+
+		private void OnAddConsignorCommandExecute(object obj)
+		{
+			if (_consignorUserDialog.AddConsignor(out var consignor))
+			{
+				_consignorsRepository.Add(consignor);
+				Consignors.Add(consignor);
+			}
+		}
+		#endregion
+
+		#region Command EditConsignorCommand - Изменить выбранного отправителя
+		private ICommand _editConsignorCommand;
+
+		public ICommand EditConsignorCommand => _editConsignorCommand ??= new LambdaCommand(OnEditConsignorCommandExecute);
+
+		private void OnEditConsignorCommandExecute(object obj)
+		{
+			if (obj is not Consignor consignor) return;
+			if (_consignorUserDialog.EditConsignor(consignor))
+				_consignorsRepository.Update(consignor);
+		}
+		#endregion
+
+		#region Command RemoveConsignorCommand - Удалить выбранного отправителя
+		private ICommand _removeConsignorCommand;
+
+		public ICommand RemoveConsignorCommand => _removeConsignorCommand ??= new LambdaCommand(OnRemoveConsignorCommandExecute);
+
+		private void OnRemoveConsignorCommandExecute(object obj)
+		{
+			if (obj is not Consignor consignor) return;
+			{
+				_consignorsRepository.Remove(consignor.Id);
+				Consignors.Remove(consignor);
 			}
 		}
 		#endregion

@@ -39,7 +39,7 @@ namespace MailSender
 			services.AddSingleton<IStatistic, InMemoryStatisticService>();
 
 			services.AddSingleton<IMailService, DebugMailService>();
-			services.AddSingleton<IMailService, SmtpMailService>();
+			//services.AddSingleton<IMailService, SmtpMailService>();
 
 			services.AddSingleton<ISchedulerService, SchedulerService>();
 

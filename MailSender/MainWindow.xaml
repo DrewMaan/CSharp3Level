@@ -62,7 +62,10 @@
 							</Button>
 						</ToolBar>
 						<ToolBar Band="1" BandIndex="0">
-							<controls:ConsignorsToolbBar/>
+							<controls:ConsignorsToolbBar ConsignorsTitle="Отправители" Consignors="{Binding Consignors}" SelectedConsignor="{Binding SelectedConsignor}"
+														 AddCommand="{Binding AddConsignorCommand}"
+														 EditCommand="{Binding EditConsignorCommand}"
+														 RemoveCommand="{Binding RemoveConsignorCommand}"/>
 						</ToolBar>
 						<ToolBar Band="1" BandIndex="1">
 							<Label Content="Получатели"/>
@@ -190,7 +193,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<GroupBox Header="Письма">
-						<ListBox Name="MessagesList" ItemsSource="{Binding Messages}">
+						<ListBox Name="MessagesList" ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Title}" ToolTip="{Binding Text}"/>

@@ -6,9 +6,8 @@
              xmlns:local="clr-namespace:MailSender.Controls"
              xmlns:fa="http://schemas.fontawesome.com/icons/"
              mc:Ignorable="d"
-			 DataContext="{Binding Source={StaticResource Locator}, Path=ConsignorsToolBarVM}"
              d:DesignHeight="32" d:DesignWidth="400">
-	<Grid>
+	<Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition Width="120"/>
@@ -16,10 +15,10 @@
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
-		<Label Content="{Binding Title}" Width="Auto" Grid.Column="0" VerticalAlignment="Center"/>
+		<Label Content="{Binding ConsignorsTitle}" Width="Auto" Grid.Column="0" VerticalAlignment="Center"/>
 		<ComboBox Name="ListItems" VerticalAlignment="Center" Width="120" Grid.Column="1" 
-		          ItemsSource="{Binding Items}"
-		          SelectedItem="{Binding SelectedItem}"
+		          ItemsSource="{Binding Consignors}"
+		          SelectedItem="{Binding SelectedConsignor}"
 		          DisplayMemberPath="Name"/>
 		<Button Grid.Column="2" BorderThickness="0" Background="Transparent" Height="28" Width="83" Margin="0" VerticalAlignment="Center"
 		        Command="{Binding AddCommand}">
@@ -31,12 +30,12 @@
 		</Button>
 		<Button Grid.Column="3" BorderThickness="0" Background="Transparent"
 		        Command="{Binding EditCommand}"
-		        CommandParameter="{Binding SelectedItem}">
+		        CommandParameter="{Binding SelectedConsignor}">
 			<fa:ImageAwesome Height="21" Icon="Solid_UserEdit" Foreground="DarkOrange"/>
 		</Button>
 		<Button Grid.Column="4" BorderThickness="0" Background="Transparent"
 		        Command="{Binding RemoveCommand}" 
-		        CommandParameter="{Binding SelectedItem}">
+		        CommandParameter="{Binding SelectedConsignor}">
 			<fa:ImageAwesome Height="21" Icon="Solid_TrashAlt" Foreground="Red"/>
 		</Button>
 	</Grid>
