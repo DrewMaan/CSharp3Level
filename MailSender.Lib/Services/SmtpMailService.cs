@@ -57,12 +57,48 @@ namespace MailSender.Services
 					Send(senderAddress, recipientAddress, subject, body);
 			}
 
+			public async Task SendAsync(string senderAddress, string recipientAddress, string subject, string body, CancellationToken cancellationToken = default)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+
+				using var client = new SmtpClient(_serverAddress, _port)
+				{
+					EnableSsl = _useSSL,
+					Credentials = new NetworkCredential
+					{
+						UserName = _login,
+						Password = _password
+					}
+				};
+
+				using var message = new MailMessage(senderAddress, recipientAddress, subject, body);
+
+				await client.SendMailAsync(message, cancellationToken);
+			}
+
+			public async Task SendAsync(string senderAddress, IEnumerable<string> recipientAddresses, string subject, string body, CancellationToken cancellationToken = default)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+
+				foreach (var recipientAddress in recipientAddresses)
+					await SendAsync(senderAddress, recipientAddress, subject, body, cancellationToken).ConfigureAwait(false);
+			}
+
 			public void SendParallel(string senderAddress, IEnumerable<string> recipientAddresses, string subject, string body)
 			{
 				foreach (var recipientAddress in recipientAddresses)
 					//ThreadPool.QueueUserWorkItem(_ => Send(senderAddress, recipientAddress, subject, body));
 					ThreadPool.QueueUserWorkItem(p => Send((string)((object[])p)[0], (string)((object[])p)[1], (string)((object[])p)[2], (string)((object[])p)[3]),
 						new[] {senderAddress, recipientAddress, subject, body });
+			}
+
+			public async Task SendParallelAsync(string senderAddress, IEnumerable<string> recipientAddresses, string subject, string body, CancellationToken cancellationToken = default)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+
+				var tasks = recipientAddresses.Select(recipientAddress => SendAsync(senderAddress, recipientAddress, subject, body, cancellationToken));
+
+				await Task.WhenAll(tasks).ConfigureAwait(false);
 			}
 		}
 	}
