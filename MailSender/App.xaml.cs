@@ -33,8 +33,6 @@ namespace MailSender
 		private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
 		{
 			services.AddSingleton<MainWindowViewModel>();
-			services.AddSingleton<ServersToolBarViewModel>();
-			services.AddSingleton<ConsignorsToolBarViewModel>();
 
 			services.AddSingleton<IStatistic, InMemoryStatisticService>();
 
