@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender.TestConsole", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender.Lib", "MailSender.Lib\MailSender.Lib.csproj", "{2DB25C17-F669-475A-9077-5CD12999C058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender.Lib.Tests", "MailSender.Lib.Tests\MailSender.Lib.Tests.csproj", "{34AFC248-51C5-489D-8D2B-C280226E6E3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender.Lib.Tests", "MailSender.Lib.Tests\MailSender.Lib.Tests.csproj", "{34AFC248-51C5-489D-8D2B-C280226E6E3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixMultiplication", "MatrixMultiplication\MatrixMultiplication.csproj", "{C1D5085D-002E-4181-9DA4-2159FB645671}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{34AFC248-51C5-489D-8D2B-C280226E6E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34AFC248-51C5-489D-8D2B-C280226E6E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34AFC248-51C5-489D-8D2B-C280226E6E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D5085D-002E-4181-9DA4-2159FB645671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D5085D-002E-4181-9DA4-2159FB645671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D5085D-002E-4181-9DA4-2159FB645671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D5085D-002E-4181-9DA4-2159FB645671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{B8E286A0-3214-4C3F-81FB-B4DE7B01797B} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
 		{E1EB6CC4-AB5C-4070-A5BD-1AB48DCB8F6F} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
 		{34AFC248-51C5-489D-8D2B-C280226E6E3B} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
+		{C1D5085D-002E-4181-9DA4-2159FB645671} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EABA2BF8-5ABE-4F45-997D-47345B1BDD09}
