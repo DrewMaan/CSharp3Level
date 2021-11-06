@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender.Lib.Tests", "Mai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixMultiplication", "MatrixMultiplication\MatrixMultiplication.csproj", "{C1D5085D-002E-4181-9DA4-2159FB645671}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculateNumbersFromFiles", "CalculateNumbersFromFiles\CalculateNumbersFromFiles.csproj", "{67661F4C-DD16-49DE-8B4A-D6C379FD38ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{C1D5085D-002E-4181-9DA4-2159FB645671}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1D5085D-002E-4181-9DA4-2159FB645671}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1D5085D-002E-4181-9DA4-2159FB645671}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67661F4C-DD16-49DE-8B4A-D6C379FD38ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67661F4C-DD16-49DE-8B4A-D6C379FD38ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67661F4C-DD16-49DE-8B4A-D6C379FD38ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67661F4C-DD16-49DE-8B4A-D6C379FD38ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{E1EB6CC4-AB5C-4070-A5BD-1AB48DCB8F6F} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
 		{34AFC248-51C5-489D-8D2B-C280226E6E3B} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
 		{C1D5085D-002E-4181-9DA4-2159FB645671} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
+		{67661F4C-DD16-49DE-8B4A-D6C379FD38ED} = {FA809B9A-F4CE-4DF7-AD38-022E5BBAB0EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EABA2BF8-5ABE-4F45-997D-47345B1BDD09}
