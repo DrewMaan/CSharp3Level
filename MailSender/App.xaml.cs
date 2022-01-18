@@ -32,25 +32,25 @@ namespace MailSender
 
 		private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
 		{
-			services.AddSingleton<MainWindowViewModel>();
+			services.AddScoped<MainWindowViewModel>();
 
-			services.AddSingleton<IStatistic, InMemoryStatisticService>();
+			services.AddScoped<IStatistic, InMemoryStatisticService>();
 
-			services.AddSingleton<IMailService, DebugMailService>();
+			services.AddScoped<IMailService, DebugMailService>();
 			//services.AddSingleton<IMailService, SmtpMailService>();
 
-			services.AddSingleton<ISchedulerService, SchedulerService>();
+			services.AddScoped<ISchedulerService, SchedulerService>();
 
 			services.AddScoped<IServerUserDialog, WindowServerUserDialogServer>();
 			services.AddScoped<IConsignorUserDialog, WindowConsignorUserDialog>();
 			services.AddScoped<ISchedulerItemUserDialog, WindowSchedulerItemUserDialogServer>();
 
-			services.AddSingleton<IRepository<Server>, InMemoryServersRepository>();
-			services.AddSingleton<IRepository<Consignor>, InMemoryConsignorsRepository>();
-			services.AddSingleton<IRepository<Recipient>, InMemoryRecipientsRepository>();
-			services.AddSingleton<IRepository<Message>, InMemoryMessagesRepository>();
-			services.AddSingleton<IRepository<MessageTask>, InMemoryMessageTasksRepository>();
-			services.AddSingleton<IRepository<SchedulerItem>, InMemorySchedulerItemsRepository>();
+			services.AddScoped<IRepository<Server>, InMemoryServersRepository>();
+			services.AddScoped<IRepository<Consignor>, InMemoryConsignorsRepository>();
+			services.AddScoped<IRepository<Recipient>, InMemoryRecipientsRepository>();
+			services.AddScoped<IRepository<Message>, InMemoryMessagesRepository>();
+			services.AddScoped<IRepository<MessageTask>, InMemoryMessageTasksRepository>();
+			services.AddScoped<IRepository<SchedulerItem>, InMemorySchedulerItemsRepository>();
 		}
 
 		protected override void OnStartup(StartupEventArgs e)
